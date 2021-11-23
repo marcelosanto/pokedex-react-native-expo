@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons'
+import PokemonInfo from './src/PokemonInfo'
 
 function HomeScreen({ navigation }) {
   return (
@@ -82,23 +83,25 @@ const Main = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Main.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#23a6d9',
-          },
-          headerTintColor: '#FFF',
-          headerTitleStyle: {
-            fontWeight: '200',
-            fontSize: 30,
-          },
-        }}
-      >
-        <Main.Screen name='Home' component={HomeScreen} />
-        <Main.Screen name='Music' component={MusicScreen} />
-      </Main.Navigator>
-    </NavigationContainer>
+    <PokemonInfo />
+
+    // <NavigationContainer>
+    //   <Main.Navigator
+    //     screenOptions={{
+    //       headerStyle: {
+    //         backgroundColor: '#23a6d9',
+    //       },
+    //       headerTintColor: '#FFF',
+    //       headerTitleStyle: {
+    //         fontWeight: '200',
+    //         fontSize: 30,
+    //       },
+    //     }}
+    //   >
+    //     <Main.Screen name='Home' component={HomeScreen} />
+    //     <Main.Screen name='Music' component={MusicScreen} />
+    //   </Main.Navigator>
+    // </NavigationContainer>
   )
 }
 
