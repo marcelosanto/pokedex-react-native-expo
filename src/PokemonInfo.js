@@ -43,24 +43,18 @@ export default () => {
       <View style={{ alignItems: 'center' }}>
         <Image style={styles.image} source={require('../assets/R.png')} />
       </View>
-      <View
-        style={{
-          backgroundColor: '#FFF',
-          width: '100%',
-          height: 300,
-          paddingTop: -200,
-        }}
-      ></View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: 300,
     backgroundColor: 'green',
     paddingTop: StatusBar.currentHeight,
     flexDirection: 'column',
+    justifyContent: 'space-between',
+    elevation: 1,
   },
   text: {
     fontSize: 40,
@@ -78,8 +72,8 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   image: {
-    height: 100,
-    width: 100,
+    height: 150,
+    width: 150,
     marginBottom: -20,
   },
 })

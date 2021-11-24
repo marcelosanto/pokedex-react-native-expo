@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons'
 import PokemonInfo from './src/PokemonInfo'
+import Home from './src/Home'
 
 function HomeScreen({ navigation }) {
   return (
@@ -83,7 +84,7 @@ const Main = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <PokemonInfo />
+    <Home />
 
     // <NavigationContainer>
     //   <Main.Navigator
