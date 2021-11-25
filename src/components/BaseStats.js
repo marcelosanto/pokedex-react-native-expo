@@ -32,11 +32,11 @@ export default () => {
       }}
     >
       <View style={{ width: 100 }}>
-        <Text>{item.stat.name}</Text>
+        <Text style={{ textTransform: 'capitalize' }}>{item.stat.name}</Text>
       </View>
 
       <View>
-        <Text style={{ textTransform: 'capitalize' }}>{item.base_stat}</Text>
+        <Text>{item.base_stat}</Text>
       </View>
       <View style={{ width: 200 }}>
         <Progress

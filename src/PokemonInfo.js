@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     opacity: 0.5,
     marginLeft: 15,
-    color: '#fff',
+    color: 'black',
     textTransform: 'capitalize',
   },
   image: {
