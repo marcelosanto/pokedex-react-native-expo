@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 
 export default () => {
   return (
-    <View style={{ flex: 1, marginLeft: 20, width: 300 }}>
+    <View style={{ flex: 1, marginLeft: 20 }}>
       <View style={{ marginTop: 20, marginBottom: 20 }}>
         <View style={styles.containerDetails}>
           <Text style={styles.text}>Species</Text>
@@ -46,6 +46,7 @@ export default () => {
 const styles = StyleSheet.create({
   containerDetails: {
     flexDirection: 'row',
+    width: 300,
   },
   text: { marginBottom: 20 },
   textTitle: {

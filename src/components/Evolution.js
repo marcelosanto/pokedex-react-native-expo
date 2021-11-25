@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Image } from 'react-native'
+
+import { family } from '../../Data'
 
 export default () => {
-  return (
-    <View>
-      <Text>Evolution</Text>
+  return family.map((item) => (
+    <View key={item}>
+      <Image style={{ width: 100, height: 100 }} source={{ uri: item }} />
     </View>
-  )
+  ))
 }
