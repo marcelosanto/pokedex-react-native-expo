@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import Progress from './Progress'
 
-import { stats } from '../../Data'
+import { pokemon } from '../../Data'
 
 export default () => {
   const color = [
@@ -19,7 +19,7 @@ export default () => {
 
   const bgColor = (i) => color[i % color.length]
 
-  return stats.map((item, index) => (
+  return pokemon.stats.map((item, index) => (
     <View
       key={item.stat.name.toString()}
       style={{

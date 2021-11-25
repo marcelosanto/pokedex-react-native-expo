@@ -7,47 +7,79 @@ import {
   Image,
   StatusBar,
 } from 'react-native'
+
 import { pokemon, egggroup } from '../Data'
+import Api from '../Api'
 
 export default () => {
+  const [aaapokemon, setPokemon] = React.useState({})
+  const [isloading, setIsLoading] = React.useState(false)
+
+  const getPokemonInfo = async () => {
+    const res = await Api.getPokemon(1)
+    if (res) {
+      setPokemon(res)
+      console.log(res.types[0].type.name)
+    }
+  }
+
+  React.useEffect(() => {
+    //getPokemonInfo()
+    //setIsLoading(false)
+  }, [isloading])
+
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          margin: 20,
-        }}
-      >
-        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <Text style={styles.text}>{pokemon.forms[0].name}</Text>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-around' }}
-          >
-            <Text style={styles.textLabel}>{pokemon.types[0].type.name}</Text>
-            <Text style={styles.textLabel}>{pokemon.types[1].type.name}</Text>
-          </View>
-        </View>
+    <>
+      {isloading == true ? (
         <View>
-          <Text
+          <Text>Carregando</Text>
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <View
             style={{
-              marginTop: 30,
-              fontSize: 20,
-              color: '#FFF',
-              fontWeight: 'bold',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              margin: 20,
             }}
           >
-            #{pokemon.id}
-          </Text>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Text style={styles.text}>{pokemon.name}</Text>
+              <View
+                style={{ flexDirection: 'row', justifyContent: 'space-around' }}
+              >
+                <Text style={styles.textLabel}>
+                  {pokemon.types[0].type.name}
+                </Text>
+                <Text style={styles.textLabel}>
+                  {pokemon.types[1].type.name}
+                </Text>
+              </View>
+            </View>
+            <View>
+              <Text
+                style={{
+                  marginTop: 30,
+                  fontSize: 20,
+                  color: '#FFF',
+                  fontWeight: 'bold',
+                }}
+              >
+                #{pokemon.id}
+              </Text>
+            </View>
+          </View>
+          <View style={{ alignItems: 'center' }}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: pokemon.sprites.other['official-artwork'].front_default,
+              }}
+            />
+          </View>
         </View>
-      </View>
-      <View style={{ alignItems: 'center' }}>
-        <Image
-          style={styles.image}
-          source={{ uri: pokemon.sprites.other.official_artwork.front_default }}
-        />
-      </View>
-    </View>
+      )}
+    </>
   )
 }
 

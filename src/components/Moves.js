@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-import { moves } from '../../Data'
+import { pokemon } from '../../Data'
 
 export default () => {
   const color = [
@@ -28,7 +28,7 @@ export default () => {
         marginTop: 40,
       }}
     >
-      {moves.map((item, index) => (
+      {pokemon.moves.map((item, index) => (
         <Text
           key={index}
           style={{
