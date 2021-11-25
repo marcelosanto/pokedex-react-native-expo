@@ -7,6 +7,7 @@ import {
   Image,
   StatusBar,
 } from 'react-native'
+import { pokemon, egggroup } from '../Data'
 
 export default () => {
   return (
@@ -19,12 +20,12 @@ export default () => {
         }}
       >
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <Text style={styles.text}>Bulbasaur</Text>
+          <Text style={styles.text}>{pokemon.forms[0].name}</Text>
           <View
             style={{ flexDirection: 'row', justifyContent: 'space-around' }}
           >
-            <Text style={styles.textLabel}>Grass</Text>
-            <Text style={styles.textLabel}>Poison</Text>
+            <Text style={styles.textLabel}>{pokemon.types[0].type.name}</Text>
+            <Text style={styles.textLabel}>{pokemon.types[1].type.name}</Text>
           </View>
         </View>
         <View>
@@ -36,12 +37,15 @@ export default () => {
               fontWeight: 'bold',
             }}
           >
-            #001
+            #{pokemon.id}
           </Text>
         </View>
       </View>
       <View style={{ alignItems: 'center' }}>
-        <Image style={styles.image} source={require('../assets/R.png')} />
+        <Image
+          style={styles.image}
+          source={{ uri: pokemon.sprites.other.official_artwork.front_default }}
+        />
       </View>
     </View>
   )
@@ -50,7 +54,7 @@ export default () => {
 const styles = StyleSheet.create({
   container: {
     height: 300,
-    backgroundColor: 'green',
+    backgroundColor: egggroup.color.name ? egggroup.color.name : 'blue',
     paddingTop: StatusBar.currentHeight,
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -60,6 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: '#FFF',
     fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
   textLabel: {
     borderRadius: 100,
