@@ -6,37 +6,67 @@ export default () => {
     <View style={{ flex: 1, marginLeft: 20 }}>
       <View style={{ marginTop: 20, marginBottom: 20 }}>
         <View style={styles.containerDetails}>
-          <Text style={styles.text}>Species</Text>
-          <Text style={styles.textInfo}>Seed</Text>
+          <View style={{ width: 100 }}>
+            <Text style={styles.text}>Species</Text>
+          </View>
+
+          <View style={{ width: 150 }}>
+            <Text style={styles.textInfo}>Seed</Text>
+          </View>
+        </View>
+
+        <View style={styles.containerDetails}>
+          <View style={{ width: 100 }}>
+            <Text style={styles.text}>Height</Text>
+          </View>
+          <View style={{ width: 150 }}>
+            <Text style={styles.textInfo}> 2'3.6* (0,70cm)</Text>
+          </View>
         </View>
         <View style={styles.containerDetails}>
-          <Text style={styles.text}>Height</Text>
-          <Text style={styles.textInfo}> 2'3.6* (0,70cm)</Text>
+          <View style={{ width: 100 }}>
+            <Text style={styles.text}>Weight</Text>
+          </View>
+          <View style={{ width: 150 }}>
+            <Text style={styles.textInfo}>15.2lbs (6.9Kg)</Text>
+          </View>
         </View>
         <View style={styles.containerDetails}>
-          <Text style={styles.text}>Weight</Text>
-          <Text style={styles.textInfo}>15.2lbs (6.9Kg)</Text>
-        </View>
-        <View style={styles.containerDetails}>
-          <Text style={styles.text}>Abilities</Text>
-          <Text style={styles.textInfo}>Overgrow, Chlorophyl</Text>
+          <View style={{ width: 100 }}>
+            <Text style={styles.text}>Abilities</Text>
+          </View>
+          <View style={{ width: 150 }}>
+            <Text style={styles.textInfo}>Overgrow, Chlorophyl</Text>
+          </View>
         </View>
       </View>
       <View style={{}}>
         <Text style={styles.textTitle}>Breeding</Text>
 
         <View style={styles.containerDetails}>
-          <Text style={styles.text}>Gender</Text>
-          <Text style={styles.textInfo}>Male and Femea</Text>
+          <View style={{ width: 100 }}>
+            <Text style={styles.text}>Gender</Text>
+          </View>
+          <View style={{ width: 150 }}>
+            <Text style={styles.textInfo}>Male and Femea</Text>
+          </View>
         </View>
 
         <View style={styles.containerDetails}>
-          <Text style={styles.text}>Egg Groups</Text>
-          <Text style={styles.textInfo}>Monster</Text>
+          <View style={{ width: 100 }}>
+            <Text style={styles.text}>Egg Groups</Text>
+          </View>
+          <View style={{ width: 150 }}>
+            <Text style={styles.textInfo}>Monster</Text>
+          </View>
         </View>
         <View style={styles.containerDetails}>
-          <Text style={styles.text}>Egg Cycle</Text>
-          <Text style={styles.textInfo}>Grass</Text>
+          <View style={{ width: 100 }}>
+            <Text style={styles.text}>Egg Cycle</Text>
+          </View>
+          <View style={{ width: 150 }}>
+            <Text style={styles.textInfo}>Grass</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -46,7 +76,7 @@ export default () => {
 const styles = StyleSheet.create({
   containerDetails: {
     flexDirection: 'row',
-    width: 300,
+    justifyContent: 'space-around',
   },
   text: { marginBottom: 20 },
   textTitle: {
@@ -55,7 +85,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
   },
-  textInfo: {
-    marginLeft: 80,
-  },
+  textInfo: {},
 })

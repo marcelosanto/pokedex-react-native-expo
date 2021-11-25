@@ -31,14 +31,14 @@ export default () => {
         justifyContent: 'space-around',
       }}
     >
-      <View style={{ width: 100 }}>
+      <View style={{ width: 120 }}>
         <Text style={{ textTransform: 'capitalize' }}>{item.stat.name}</Text>
       </View>
 
       <View>
         <Text>{item.base_stat}</Text>
       </View>
-      <View style={{ width: 200 }}>
+      <View style={{ width: 180 }}>
         <Progress
           step={item.base_stat / 10}
           steps={10}
