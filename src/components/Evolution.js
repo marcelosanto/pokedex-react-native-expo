@@ -1,12 +1,24 @@
 import React from 'react'
-import { View, Image } from 'react-native'
+import { View, Image, Text } from 'react-native'
+import { AntDesign } from '@expo/vector-icons'
 
 import { family } from '../../Data'
 
 export default () => {
-  return family.map((item) => (
-    <View key={item}>
-      <Image style={{ width: 100, height: 100 }} source={{ uri: item }} />
+  return (
+    <View
+      style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20 }}
+    >
+      {family.map((item) => (
+        <>
+          <Image
+            key={item}
+            style={{ width: 100, height: 100, marginBottom: 20 }}
+            source={{ uri: item }}
+          />
+          <AntDesign name='caretdown' size={24} color='black' />
+        </>
+      ))}
     </View>
-  ))
+  )
 }

@@ -5,9 +5,21 @@ import Progress from './Progress'
 import { stats } from '../../Data'
 
 export default () => {
-  let color = ['red', 'green']
+  const color = [
+    '#637aff',
+    '#60c5a8',
+    '#CCCCCC',
+    '#ff5454',
+    '#039a83',
+    '#dcb834',
+    '#8f06e4',
+    'skyblue',
+    '#ff4c98',
+  ]
 
-  return stats.map((item) => (
+  const bgColor = (i) => color[i % color.length]
+
+  return stats.map((item, index) => (
     <View
       key={item.stat.name.toString()}
       style={{
@@ -31,7 +43,7 @@ export default () => {
           step={item.base_stat / 10}
           steps={10}
           height={7}
-          color={color[Math.floor(Math.random() * color.length)]}
+          color={bgColor(index)}
         />
       </View>
     </View>

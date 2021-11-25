@@ -4,11 +4,46 @@ import { View, Text } from 'react-native'
 import { moves } from '../../Data'
 
 export default () => {
-  return moves.map((item) => (
-    <View style={{ alignItems: 'center' }} key={item.move.name.toString()}>
-      <Text style={{ color: '#FFF', backgroundColor: 'blue' }}>
-        {item.move.name}
-      </Text>
+  const color = [
+    '#637aff',
+    '#60c5a8',
+    '#CCCCCC',
+    '#ff5454',
+    '#039a83',
+    '#dcb834',
+    '#8f06e4',
+    'skyblue',
+    '#ff4c98',
+  ]
+
+  const bgColor = (i) => color[i % color.length]
+
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 40,
+      }}
+    >
+      {moves.map((item, index) => (
+        <Text
+          key={index}
+          style={{
+            margin: 10,
+            color: 'black',
+            backgroundColor: bgColor(index),
+            borderRadius: 100,
+            width: 100,
+            textAlign: 'center',
+            textTransform: 'capitalize',
+          }}
+        >
+          {item.move.name}
+        </Text>
+      ))}
     </View>
-  ))
+  )
 }
