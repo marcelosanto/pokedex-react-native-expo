@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   StatusBar,
+  ScrollView,
 } from 'react-native'
 
 import { colorOfSpecies } from '../../Data'
@@ -42,8 +43,7 @@ export default ({ name, typesOne, typesTwo, image, id }) => {
   }, [])
 
   return (
-    <>
-      {console.log(colorOfSpecies('normal'))}
+    <ScrollView>
       {pokemons.length > 0 ? (
         pokemons.map((pokemon) => (
           <View
@@ -70,9 +70,11 @@ export default ({ name, typesOne, typesTwo, image, id }) => {
                 <Text style={styles.textLabel}>
                   {pokemon.types[0].type.name}
                 </Text>
-                <Text style={styles.textLabel}>
-                  {pokemon.types[1]?.type.name}
-                </Text>
+                {pokemon.types[1] && (
+                  <Text style={styles.textLabel}>
+                    {pokemon.types[1]?.type.name}
+                  </Text>
+                )}
               </View>
             </View>
             <View
@@ -107,7 +109,7 @@ export default ({ name, typesOne, typesTwo, image, id }) => {
           <Text>Caregando</Text>
         </View>
       )}
-    </>
+    </ScrollView>
   )
 }
 
