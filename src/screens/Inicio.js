@@ -10,36 +10,14 @@ import {
 } from 'react-native'
 
 import { colorOfSpecies } from '../../Data'
+import { UserContext } from '../context/UserContext'
 
-export default ({ name, typesOne, typesTwo, image, id }) => {
-  const [pokemons, setPokemons] = React.useState([])
-
-  async function fetchKantoPokemon() {
-    await fetch('https://pokeapi.co/api/v2/pokemon?limit=50')
-      .then((response) => response.json())
-      .then(function (allpokemon) {
-        allpokemon.results.forEach(function (pokemon) {
-          fetchPokemonData(pokemon)
-        })
-      })
-  }
-
-  let pokemonArray = []
-
-  async function fetchPokemonData(pokemon) {
-    let url = pokemon.url // <--- this is saving the pokemon url to a variable to use in the fetch.
-    //Example: https://pokeapi.co/api/v2/pokemon/1/"
-
-    await fetch(url)
-      .then((response) => response.json())
-      .then(function (pokeData) {
-        //console.log(pokeData)
-        setPokemons((oldData) => [...oldData, pokeData])
-      })
-  }
+export default () => {
+  const { state, dispatch } = React.useContext(UserContext)
+  const [pokemons, setPokemons] = React.useState({})
 
   React.useEffect(() => {
-    fetchKantoPokemon()
+    setPokemons(state.pokemons)
   }, [])
 
   return (
