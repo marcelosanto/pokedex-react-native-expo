@@ -7,87 +7,103 @@ import {
   Image,
   StatusBar,
   ScrollView,
+  FlatList,
 } from 'react-native'
 
 import { colorOfSpecies } from '../../Data'
 import { UserContext } from '../context/UserContext'
+import Api from '../PokemonApi'
 
 export default () => {
   const { state, dispatch } = React.useContext(UserContext)
-  const [pokemons, setPokemons] = React.useState({})
+  const [pokemons, setPokemons] = React.useState([])
 
+  async function fetchAllPokemon() {
+    await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
+      .then((response) => response.json())
+      .then(function (allpokemon) {
+        allpokemon.results.forEach(function (pokemon) {
+          fetchPokemonData(pokemon)
+        })
+      })
+  }
+
+  async function fetchPokemonData(pokemon) {
+    let url = pokemon.url // <--- this is saving the pokemon url to a variable to use in the fetch.
+    //Example: https://pokeapi.co/api/v2/pokemon/1/"
+
+    await fetch(url)
+      .then((response) => response.json())
+      .then(function (pokeData) {
+        setPokemons((oldData) => [...oldData, pokeData])
+      })
+  }
   React.useEffect(() => {
-    setPokemons(state.pokemons)
+    fetchAllPokemon()
   }, [])
 
-  return (
-    <ScrollView>
-      {pokemons.length > 0 ? (
-        pokemons.map((pokemon) => (
-          <View
-            key={pokemon.id}
-            style={[
-              styles.container,
+  const renderItem = ({ item }) => (
+    <View
+      key={item.id}
+      style={[
+        styles.container,
 
-              {
-                backgroundColor: colorOfSpecies(pokemon.types[0].type.name),
-              },
-            ]}
-          >
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                margin: 20,
-              }}
-            >
-              <View
-                style={{ flexDirection: 'column', alignItems: 'flex-start' }}
-              >
-                <Text style={styles.text}>{pokemon.name}</Text>
-                <Text style={styles.textLabel}>
-                  {pokemon.types[0].type.name}
-                </Text>
-                {pokemon.types[1] && (
-                  <Text style={styles.textLabel}>
-                    {pokemon.types[1]?.type.name}
-                  </Text>
-                )}
-              </View>
-            </View>
-            <View
-              style={{ alignItems: 'center', justifyContent: 'space-between' }}
-            >
-              <View>
-                <Text
-                  style={{
-                    marginTop: 30,
-                    fontSize: 20,
-                    color: '#FFF',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  #{pokemon.id < 10 ? '00' + pokemon.id : '0' + pokemon.id}
-                </Text>
-              </View>
-              <View>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: pokemon.sprites.other['official-artwork']
-                      .front_default,
-                  }}
-                />
-              </View>
-            </View>
-          </View>
-        ))
-      ) : (
-        <View>
-          <Text>Caregando</Text>
+        {
+          backgroundColor: colorOfSpecies(item.types[0].type.name),
+        },
+      ]}
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          margin: 20,
+        }}
+      >
+        <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+          <Text style={styles.text}>{item.name}</Text>
+          <Text style={styles.textLabel}>{item.types[0].type.name}</Text>
+          {item.types[1] && (
+            <Text style={styles.textLabel}>{item.types[1]?.type.name}</Text>
+          )}
         </View>
-      )}
-    </ScrollView>
+      </View>
+      <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>
+        <View>
+          <Text
+            style={{
+              marginTop: 30,
+              fontSize: 20,
+              color: '#FFF',
+              fontWeight: 'bold',
+            }}
+          >
+            #{item.id < 10 ? '00' + item.id : '0' + item.id}
+          </Text>
+        </View>
+        <View>
+          <Image
+            style={styles.image}
+            source={{
+              uri: item.sprites.other['official-artwork'].front_default,
+            }}
+          />
+        </View>
+      </View>
+    </View>
+  )
+
+  return (
+    <SafeAreaView>
+      <Text>Lista de pokemons</Text>
+      <FlatList
+        data={pokemons}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+
+      {/*  */}
+    </SafeAreaView>
   )
 }
 
