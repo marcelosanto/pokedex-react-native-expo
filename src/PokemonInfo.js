@@ -8,85 +8,71 @@ import {
   StatusBar,
 } from 'react-native'
 
-import { pokemon, egggroup } from '../Data'
-import Api from '../Api'
+import { colorOfSpecies } from '../Data'
+
+import { UserContext } from './context/UserContext'
 
 export default () => {
-  const [aaapokemon, setPokemon] = React.useState({})
-  const [isloading, setIsLoading] = React.useState(false)
-
-  const getPokemonInfo = async () => {
-    const res = await Api.getPokemon(1)
-    if (res) {
-      setPokemon(res)
-      console.log(res.types[0].type.name)
-    }
-  }
-
-  React.useEffect(() => {
-    //getPokemonInfo()
-    //setIsLoading(false)
-  }, [isloading])
+  const { state } = React.useContext(UserContext)
 
   return (
-    <>
-      {isloading == true ? (
-        <View>
-          <Text>Carregando</Text>
-        </View>
-      ) : (
-        <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+
+        {
+          backgroundColor: colorOfSpecies(state.pokemon.types[0].type.name),
+        },
+      ]}
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          margin: 20,
+        }}
+      >
+        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+          <Text style={styles.text}>{state.pokemon.name}</Text>
           <View
+            style={{ flexDirection: 'row', justifyContent: 'space-around' }}
+          >
+            <Text style={styles.textLabel}>
+              {state.pokemon.types[0]?.type.name}
+            </Text>
+            <Text style={styles.textLabel}>
+              {state.pokemon.types[1]?.type.name}
+            </Text>
+          </View>
+        </View>
+        <View>
+          <Text
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              margin: 20,
+              marginTop: 30,
+              fontSize: 20,
+              color: '#FFF',
+              fontWeight: 'bold',
             }}
           >
-            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-              <Text style={styles.text}>{pokemon.name}</Text>
-              <View
-                style={{ flexDirection: 'row', justifyContent: 'space-around' }}
-              >
-                <Text style={styles.textLabel}>
-                  {pokemon.types[0].type.name}
-                </Text>
-                <Text style={styles.textLabel}>
-                  {pokemon.types[1].type.name}
-                </Text>
-              </View>
-            </View>
-            <View>
-              <Text
-                style={{
-                  marginTop: 30,
-                  fontSize: 20,
-                  color: '#FFF',
-                  fontWeight: 'bold',
-                }}
-              >
-                #{pokemon.id}
-              </Text>
-            </View>
-          </View>
-          <View style={{ alignItems: 'center' }}>
-            <Image
-              style={styles.image}
-              source={{
-                uri: pokemon.sprites.other['official-artwork'].front_default,
-              }}
-            />
-          </View>
+            #{state.pokemon.id}
+          </Text>
         </View>
-      )}
-    </>
+      </View>
+      <View style={{ alignItems: 'center' }}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: state.pokemon.sprites.other['official-artwork'].front_default,
+          }}
+        />
+      </View>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
-    backgroundColor: egggroup.color.name ? egggroup.color.name : 'blue',
+    height: 250,
     paddingTop: StatusBar.currentHeight,
     flexDirection: 'column',
     justifyContent: 'space-between',

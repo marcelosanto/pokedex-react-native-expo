@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import TabNavigator from './TabNavigator'
+import TabNavigator from './stacks/TabNavigator'
 import PokemonInfo from './PokemonInfo'
 
 export default () => {

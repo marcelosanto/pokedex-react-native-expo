@@ -6,15 +6,15 @@ import {
   StyleSheet,
   Image,
   StatusBar,
-  ScrollView,
+  TouchableOpacity,
   FlatList,
+  Alert,
 } from 'react-native'
 
 import { colorOfSpecies } from '../../Data'
 import { UserContext } from '../context/UserContext'
-import Api from '../PokemonApi'
 
-export default () => {
+export default ({ navigation }) => {
   const { state, dispatch } = React.useContext(UserContext)
   const [pokemons, setPokemons] = React.useState([])
 
@@ -29,8 +29,7 @@ export default () => {
   }
 
   async function fetchPokemonData(pokemon) {
-    let url = pokemon.url // <--- this is saving the pokemon url to a variable to use in the fetch.
-    //Example: https://pokeapi.co/api/v2/pokemon/1/"
+    let url = pokemon.url
 
     await fetch(url)
       .then((response) => response.json())
@@ -42,8 +41,25 @@ export default () => {
     fetchAllPokemon()
   }, [])
 
-  const renderItem = ({ item }) => (
-    <View
+  const handlePokemonInfo = (pokemon) => {
+    dispatch({
+      type: 'setPokemon',
+      payload: {
+        pokemon: pokemon,
+      },
+    })
+
+    console.log('Inicio')
+
+    navigation.reset({
+      index: 1,
+      routes: [{ name: 'TabNavigator' }],
+    })
+  }
+
+  const renderItem = ({ item, OnPress }) => (
+    <TouchableOpacity
+      onPress={() => handlePokemonInfo(item)}
       key={item.id}
       style={[
         styles.container,
@@ -90,7 +106,7 @@ export default () => {
           />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 
   return (
@@ -100,6 +116,7 @@ export default () => {
         data={pokemons}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        OnPress={() => console.log('funfou')}
       />
 
       {/*  */}

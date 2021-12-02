@@ -2,9 +2,11 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import Progress from './Progress'
 
-import { pokemon } from '../../Data'
+import { UserContext } from '../context/UserContext'
 
 export default () => {
+  const { state } = React.useContext(UserContext)
+
   const color = [
     '#637aff',
     '#60c5a8',
@@ -19,7 +21,7 @@ export default () => {
 
   const bgColor = (i) => color[i % color.length]
 
-  return pokemon.stats.map((item, index) => (
+  return state.pokemon.stats.map((item, index) => (
     <View
       key={item.stat.name.toString()}
       style={{

@@ -2,9 +2,12 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Foundation } from '@expo/vector-icons'
 
-import { pokemon, egggroup } from '../../Data'
+import { egggroup } from '../../Data'
+import { UserContext } from '../context/UserContext'
 
 export default () => {
+  const { state } = React.useContext(UserContext)
+
   const PokemonAboutInfo = ({ title, textInfo }) => {
     return (
       <>
@@ -33,7 +36,9 @@ export default () => {
             <Text style={styles.text}>Height</Text>
           </View>
           <View style={{ width: 150 }}>
-            <Text style={styles.textInfo}>{pokemon.height / 10 + ' cm'}</Text>
+            <Text style={styles.textInfo}>
+              {state.pokemon.height / 10 + ' cm'}
+            </Text>
           </View>
         </View>
         <View style={styles.containerDetails}>
@@ -41,7 +46,9 @@ export default () => {
             <Text style={styles.text}>Weight</Text>
           </View>
           <View style={{ width: 150 }}>
-            <Text style={styles.textInfo}>{pokemon.weight / 10 + ' Kg'}</Text>
+            <Text style={styles.textInfo}>
+              {state.pokemon.weight / 10 + ' Kg'}
+            </Text>
           </View>
         </View>
         <View style={styles.containerDetails}>
@@ -50,7 +57,7 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {`${pokemon.abilities[0].ability.name}, ${pokemon.abilities[1].ability.name}
+              {`${state.pokemon.abilities[0].ability.name}, ${state.pokemon.abilities[1].ability.name}
                  `}
             </Text>
           </View>

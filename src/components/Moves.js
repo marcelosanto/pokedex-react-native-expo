@@ -1,9 +1,11 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { SafeAreaView, ScrollView, Text } from 'react-native'
 
-import { pokemon } from '../../Data'
+import { UserContext } from '../context/UserContext'
 
 export default () => {
+  const { state } = React.useContext(UserContext)
+
   const color = [
     '#637aff',
     '#60c5a8',
@@ -19,31 +21,33 @@ export default () => {
   const bgColor = (i) => color[i % color.length]
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 40,
-      }}
-    >
-      {pokemon.moves.map((item, index) => (
-        <Text
-          key={index}
-          style={{
-            margin: 10,
-            color: 'black',
-            backgroundColor: bgColor(index),
-            borderRadius: 100,
-            width: 100,
-            textAlign: 'center',
-            textTransform: 'capitalize',
-          }}
-        >
-          {item.move.name}
-        </Text>
-      ))}
-    </View>
+    <ScrollView>
+      <SafeAreaView
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 40,
+        }}
+      >
+        {state.pokemon.moves.map((item, index) => (
+          <Text
+            key={index}
+            style={{
+              margin: 10,
+              color: 'black',
+              backgroundColor: bgColor(index),
+              borderRadius: 100,
+              width: 100,
+              textAlign: 'center',
+              textTransform: 'capitalize',
+            }}
+          >
+            {item.move.name}
+          </Text>
+        ))}
+      </SafeAreaView>
+    </ScrollView>
   )
 }
