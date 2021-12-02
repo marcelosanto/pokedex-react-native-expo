@@ -1,3 +1,10 @@
+//https://pokeapi.co/api/v2/pokemon-species/{id}
+//"evolution_chain": {
+//"url": "https://pokeapi.co/api/v2/evolution-chain/1/"
+//},
+
+//https://pokeapi.co/api/v2/evolution-chain/{id}
+
 export const family = [
   'https://cdn.traction.one/pokedex/pokemon/1.png',
   'https://cdn.traction.one/pokedex/pokemon/2.png',

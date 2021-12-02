@@ -37,7 +37,9 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {state.pokemon.height / 10 + ' cm'}
+              {state.pokemon.height > 1
+                ? state.pokemon.height / 10 + ' m'
+                : state.pokemon.height + ' cm'}
             </Text>
           </View>
         </View>

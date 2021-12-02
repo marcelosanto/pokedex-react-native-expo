@@ -10,7 +10,6 @@ export default () => {
   const color = [
     '#637aff',
     '#60c5a8',
-    '#CCCCCC',
     '#ff5454',
     '#039a83',
     '#dcb834',
@@ -42,9 +41,9 @@ export default () => {
       </View>
       <View style={{ width: 180 }}>
         <Progress
-          step={item.base_stat / 10}
+          step={item.base_stat / 11}
           steps={10}
-          height={7}
+          height={8}
           color={bgColor(index)}
         />
       </View>
