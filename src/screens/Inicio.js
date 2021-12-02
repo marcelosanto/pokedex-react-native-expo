@@ -37,24 +37,36 @@ export default ({ navigation }) => {
         setPokemons((oldData) => [...oldData, pokeData])
       })
   }
+
   React.useEffect(() => {
     fetchAllPokemon()
   }, [])
 
-  const handlePokemonInfo = (pokemon) => {
-    dispatch({
-      type: 'setPokemon',
-      payload: {
-        pokemon: pokemon,
-      },
-    })
+  const handlePokemonInfo = async (pokemon) => {
+    await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`)
+      .then((response) => response.json())
+      .then(function (pokeData) {
+        dispatch({
+          type: 'setEggroups',
+          payload: {
+            eggroups: pokeData,
+          },
+        })
+
+        dispatch({
+          type: 'setPokemon',
+          payload: {
+            pokemon: pokemon,
+          },
+        })
+
+        navigation.reset({
+          index: 1,
+          routes: [{ name: 'TabNavigator' }],
+        })
+      })
 
     console.log('Inicio')
-
-    navigation.reset({
-      index: 1,
-      routes: [{ name: 'TabNavigator' }],
-    })
   }
 
   const renderItem = ({ item, OnPress }) => (

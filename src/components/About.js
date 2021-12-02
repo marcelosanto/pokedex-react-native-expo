@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Foundation } from '@expo/vector-icons'
 
-import { egggroup } from '../../Data'
 import { UserContext } from '../context/UserContext'
 
 export default () => {
@@ -27,7 +26,7 @@ export default () => {
         <View style={styles.containerDetails}>
           <PokemonAboutInfo
             title='Species'
-            textInfo={egggroup.genera[7].genus}
+            textInfo={state.eggroups.genera[7].genus}
           />
         </View>
 
@@ -88,7 +87,9 @@ export default () => {
             <Text style={styles.text}>Egg Groups</Text>
           </View>
           <View style={{ width: 150 }}>
-            <Text style={styles.textInfo}>{egggroup.egg_groups[0].name}</Text>
+            <Text style={styles.textInfo}>
+              {state.eggroups.egg_groups[0].name}
+            </Text>
           </View>
         </View>
         <View style={styles.containerDetails}>
@@ -96,7 +97,9 @@ export default () => {
             <Text style={styles.text}>Egg Cycle</Text>
           </View>
           <View style={{ width: 150 }}>
-            <Text style={styles.textInfo}>{egggroup.egg_groups[1].name}</Text>
+            <Text style={styles.textInfo}>
+              {state.eggroups.egg_groups[1].name}
+            </Text>
           </View>
         </View>
       </View>
