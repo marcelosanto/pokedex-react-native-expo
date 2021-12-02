@@ -40,9 +40,11 @@ export default () => {
             <Text style={styles.textLabel}>
               {state.pokemon.types[0]?.type.name}
             </Text>
-            <Text style={styles.textLabel}>
-              {state.pokemon.types[1]?.type.name}
-            </Text>
+            {state.pokemon.types[1] && (
+              <Text style={styles.textLabel}>
+                {state.pokemon.types[1]?.type.name}
+              </Text>
+            )}
           </View>
         </View>
         <View>

@@ -43,7 +43,9 @@ export default ({ navigation }) => {
   }, [])
 
   const handlePokemonInfo = async (pokemon) => {
-    await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`)
+    const res = await fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`
+    )
       .then((response) => response.json())
       .then(function (pokeData) {
         dispatch({
@@ -60,16 +62,19 @@ export default ({ navigation }) => {
           },
         })
 
-        navigation.reset({
-          index: 1,
-          routes: [{ name: 'TabNavigator' }],
-        })
+        return true
       })
 
-    console.log('Inicio')
+    if (res) {
+      navigation.reset({
+        index: 1,
+        routes: [{ name: 'TabNavigator' }],
+      })
+      console.log('Inicio')
+    }
   }
 
-  const renderItem = ({ item, OnPress }) => (
+  const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => handlePokemonInfo(item)}
       key={item.id}
