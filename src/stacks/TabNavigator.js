@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import { View, SafeAreaView } from 'react-native'
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import About from '../components/About'
@@ -9,6 +10,7 @@ import BaseStats from '../components/BaseStats'
 import PokemonInfo from '../PokemonInfo'
 import { UserContext } from '../context/UserContext'
 import { colorOfSpecies } from '../../Data'
+import Header from '../components/Header'
 
 const Tab = createMaterialTopTabNavigator()
 
@@ -16,12 +18,14 @@ export default () => {
   const { state } = React.useContext(UserContext)
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: colorOfSpecies(state.pokemon.types[0].type.name),
       }}
     >
+      <StatusBar hidden={true} />
+      <Header />
       <PokemonInfo />
       <Tab.Navigator
         screenOptions={{
@@ -39,6 +43,6 @@ export default () => {
         <Tab.Screen name='Evolution' component={Evolution} />
         <Tab.Screen name='Moves' component={Moves} />
       </Tab.Navigator>
-    </View>
+    </SafeAreaView>
   )
 }

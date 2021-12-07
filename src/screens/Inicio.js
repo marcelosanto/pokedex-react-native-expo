@@ -18,17 +18,17 @@ export default ({ navigation }) => {
   const { state, dispatch } = React.useContext(UserContext)
   const [pokemons, setPokemons] = React.useState([])
 
-  async function fetchAllPokemon() {
+  const fetchAllPokemon = async () => {
     await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
       .then((response) => response.json())
-      .then(function (allpokemon) {
-        allpokemon.results.forEach(function (pokemon) {
+      .then((allpokemon) => {
+        allpokemon.results.forEach((pokemon) => {
           fetchPokemonData(pokemon)
         })
       })
   }
 
-  async function fetchPokemonData(pokemon) {
+  const fetchPokemonData = async (pokemon) => {
     let url = pokemon.url
 
     await fetch(url)
@@ -42,36 +42,42 @@ export default ({ navigation }) => {
     fetchAllPokemon()
   }, [])
 
-  const handlePokemonInfo = async (pokemon) => {
-    const res = await fetch(
+  const pokemonDetails = async (pokemon) => {
+    dispatch({
+      type: 'setPokemon',
+      payload: {
+        pokemon: pokemon,
+      },
+    })
+
+    const req = await fetch(
       `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`
     )
-      .then((response) => response.json())
-      .then(function (pokeData) {
-        dispatch({
-          type: 'setEggroups',
-          payload: {
-            eggroups: pokeData,
-          },
-        })
+    let json = await req.json()
 
-        dispatch({
-          type: 'setPokemon',
-          payload: {
-            pokemon: pokemon,
-          },
-        })
-
-        return true
+    if (json) {
+      dispatch({
+        type: 'setEggroups',
+        payload: {
+          eggroups: json,
+        },
       })
+
+      return true
+    }
+  }
+
+  const handlePokemonInfo = async (pokemon) => {
+    const res = await pokemonDetails(pokemon)
 
     if (res) {
       navigation.reset({
         index: 1,
         routes: [{ name: 'TabNavigator' }],
       })
-      console.log('Inicio')
     }
+
+    //console.log(res)
   }
 
   const renderItem = ({ item }) => (
