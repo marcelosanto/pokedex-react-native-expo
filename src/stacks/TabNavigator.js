@@ -1,8 +1,8 @@
 import React from 'react'
-import { StatusBar } from 'expo-status-bar'
-import { View, SafeAreaView } from 'react-native'
-
+import { View, SafeAreaView, StatusBar } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import { useRoute } from '@react-navigation/native'
+
 import About from '../components/About'
 import Moves from '../components/Moves'
 import Evolution from '../components/Evolution'
@@ -22,9 +22,9 @@ export default () => {
       style={{
         flex: 1,
         backgroundColor: colorOfSpecies(state.pokemon.types[0].type.name),
+        //paddingTop: StatusBar.currentHeight,
       }}
     >
-      <StatusBar hidden={true} />
       <Header />
       <PokemonInfo />
       <Tab.Navigator

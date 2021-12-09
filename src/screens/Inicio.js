@@ -17,6 +17,7 @@ import { UserContext } from '../context/UserContext'
 export default ({ navigation }) => {
   const { state, dispatch } = React.useContext(UserContext)
   const [pokemons, setPokemons] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
 
   const fetchAllPokemon = async () => {
     await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
@@ -40,7 +41,8 @@ export default ({ navigation }) => {
 
   React.useEffect(() => {
     fetchAllPokemon()
-  }, [])
+    setLoading(false)
+  }, [loading])
 
   const pokemonDetails = async (pokemon) => {
     dispatch({
@@ -63,21 +65,14 @@ export default ({ navigation }) => {
         },
       })
 
-      return true
+      return json
     }
   }
 
-  const handlePokemonInfo = async (pokemon) => {
-    const res = await pokemonDetails(pokemon)
-
-    if (res) {
-      navigation.reset({
-        index: 1,
-        routes: [{ name: 'TabNavigator' }],
-      })
-    }
-
-    //console.log(res)
+  const handlePokemonInfo = (pokemon) => {
+    const res = pokemonDetails(pokemon)
+    if (Object.keys(res).length > 0)
+      navigation.navigate('TabNavigator', { pokemon })
   }
 
   const renderItem = ({ item }) => (

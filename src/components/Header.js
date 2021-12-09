@@ -7,7 +7,7 @@ export default class Header extends Component {
       <View
         style={{
           width: '100%',
-          height: 30,
+          height: 40,
           backgroundColor: '#000',
           justifyContent: 'center',
         }}
