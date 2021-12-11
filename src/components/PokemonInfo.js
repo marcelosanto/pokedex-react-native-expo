@@ -21,7 +21,9 @@ export default () => {
         styles.container,
 
         {
-          backgroundColor: colorOfSpecies(state.pokemon.types[0].type.name),
+          backgroundColor: `${colorOfSpecies(
+            state.pokemon.types[0].type.name
+          )}88`,
         },
       ]}
     >
@@ -34,18 +36,26 @@ export default () => {
       >
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
           <Text style={styles.text}>{state.pokemon.name}</Text>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-around' }}
-          >
-            <Text style={styles.textLabel}>
-              {state.pokemon.types[0]?.type.name}
-            </Text>
-            {state.pokemon.types[1] && (
+
+          {state.pokemon.types[1] ? (
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-around' }}
+            >
+              <Text style={styles.textLabel}>
+                {state.pokemon.types[0]?.type.name}
+              </Text>
+
               <Text style={styles.textLabel}>
                 {state.pokemon.types[1]?.type.name}
               </Text>
-            )}
-          </View>
+            </View>
+          ) : (
+            <View style={{ width: '100%' }}>
+              <Text style={styles.textLabel}>
+                {state.pokemon.types[0]?.type.name}
+              </Text>
+            </View>
+          )}
         </View>
         <View>
           <Text
@@ -74,7 +84,7 @@ export default () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 250,
+    height: 270,
     paddingTop: StatusBar.currentHeight,
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -88,7 +98,8 @@ const styles = StyleSheet.create({
   },
   textLabel: {
     borderRadius: 100,
-    width: 60,
+    width: 90,
+    fontSize: 20,
     textAlign: 'center',
     backgroundColor: '#FFF',
     opacity: 0.5,
@@ -99,6 +110,5 @@ const styles = StyleSheet.create({
   image: {
     height: 150,
     width: 150,
-    marginBottom: -20,
   },
 })

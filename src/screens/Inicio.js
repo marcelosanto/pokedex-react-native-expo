@@ -25,7 +25,7 @@ export default ({ navigation }) => {
   const [pokemons, setPokemons] = useState([])
 
   const fetchAllPokemon = async () => {
-    await fetch('https://pokeapi.co/api/v2/pokemon?limit=05')
+    await fetch('https://pokeapi.co/api/v2/pokemon?limit=50')
       .then((response) => response.json())
       .then((allpokemon) => {
         allpokemon.results.forEach((pokemon) => {
