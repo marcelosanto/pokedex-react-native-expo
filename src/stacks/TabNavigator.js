@@ -22,10 +22,9 @@ export default () => {
       style={{
         flex: 1,
         backgroundColor: colorOfSpecies(state.pokemon.types[0].type.name),
-        //paddingTop: StatusBar.currentHeight,
+        paddingTop: StatusBar.currentHeight,
       }}
     >
-      <Header />
       <PokemonInfo />
       <Tab.Navigator
         screenOptions={{

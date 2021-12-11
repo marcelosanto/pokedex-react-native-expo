@@ -26,7 +26,7 @@ export default () => {
         <View style={styles.containerDetails}>
           <PokemonAboutInfo
             title='Species'
-            textInfo={state.eggroups.genera[7].genus}
+            textInfo={state.eggroups.genera[7]?.genus}
           />
         </View>
 
@@ -58,7 +58,7 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {`${state.pokemon.abilities[0].ability.name}, ${state.pokemon.abilities[1].ability.name}
+              {`${state.pokemon.abilities[0]?.ability.name}, ${state.pokemon.abilities[1]?.ability.name}
                  `}
             </Text>
           </View>
@@ -88,7 +88,7 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {state.eggroups.egg_groups[0].name}
+              {state.eggroups.egg_groups[0]?.name || 'null'}
             </Text>
           </View>
         </View>
@@ -98,7 +98,7 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {state.eggroups.egg_groups[1].name}
+              {state.eggroups.egg_groups[1]?.name || 'null'}
             </Text>
           </View>
         </View>

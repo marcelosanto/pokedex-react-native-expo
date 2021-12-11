@@ -10,14 +10,13 @@ const Stack = createNativeStackNavigator()
 
 export default () => (
   <Stack.Navigator
-    initialRouteName='Preload'
+    initialRouteName='Inicio'
     screenOptions={{
       headerShown: false,
     }}
   >
-    <Stack.Screen name='Preload' component={Preload} />
-    <Stack.Screen name='Inicio' component={Inicio} />
     <Stack.Screen name='Home' component={Home} />
+    <Stack.Screen name='Inicio' component={Inicio} />
     <Stack.Screen name='TabNavigator' component={TabNavigator} />
   </Stack.Navigator>
 )

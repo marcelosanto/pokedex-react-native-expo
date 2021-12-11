@@ -8,9 +8,7 @@ export default () => {
   return (
     <View style={{ flex: 1, backgroundColor: 'green' }}>
       <PokemonInfo />
-      <NavigationContainer>
-        <TabNavigator />
-      </NavigationContainer>
+      <TabNavigator />
     </View>
   )
 }

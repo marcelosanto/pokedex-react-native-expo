@@ -11,13 +11,14 @@ import {
   Alert,
 } from 'react-native'
 
+import { CommonActions } from '@react-navigation/native'
+
 import { colorOfSpecies } from '../../Data'
 import { UserContext } from '../context/UserContext'
 
 export default ({ navigation }) => {
   const { state, dispatch } = React.useContext(UserContext)
   const [pokemons, setPokemons] = React.useState([])
-  const [loading, setLoading] = React.useState(false)
 
   const fetchAllPokemon = async () => {
     await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
@@ -41,8 +42,7 @@ export default ({ navigation }) => {
 
   React.useEffect(() => {
     fetchAllPokemon()
-    setLoading(false)
-  }, [loading])
+  }, [])
 
   const pokemonDetails = async (pokemon) => {
     dispatch({
@@ -65,14 +65,12 @@ export default ({ navigation }) => {
         },
       })
 
-      return json
+      navigation.dispatch(CommonActions.navigate('TabNavigator'))
     }
   }
 
-  const handlePokemonInfo = (pokemon) => {
-    const res = pokemonDetails(pokemon)
-    if (Object.keys(res).length > 0)
-      navigation.navigate('TabNavigator', { pokemon })
+  const handlePokemonInfo = async (pokemon) => {
+    await pokemonDetails(pokemon)
   }
 
   const renderItem = ({ item }) => (
@@ -81,7 +79,6 @@ export default ({ navigation }) => {
       key={item.id}
       style={[
         styles.container,
-
         {
           backgroundColor: colorOfSpecies(item.types[0].type.name),
         },
@@ -128,13 +125,16 @@ export default ({ navigation }) => {
   )
 
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={{
+        paddingTop: StatusBar.currentHeight,
+      }}
+    >
       <Text>Lista de pokemons</Text>
       <FlatList
         data={pokemons}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        OnPress={() => console.log('funfou')}
       />
 
       {/*  */}
@@ -145,7 +145,6 @@ export default ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     height: 300,
-    paddingTop: StatusBar.currentHeight,
     flexDirection: 'row',
     justifyContent: 'space-between',
     elevation: 1,
