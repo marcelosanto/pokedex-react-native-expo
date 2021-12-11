@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   View,
   SafeAreaView,
@@ -9,19 +9,23 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
+  Animated,
+  TextInput,
 } from 'react-native'
 
 import { CommonActions } from '@react-navigation/native'
 
 import { colorOfSpecies } from '../../Data'
 import { UserContext } from '../context/UserContext'
+import PokemonCardList from '../components/PokemonCardList'
+import Header from '../components/Header'
 
 export default ({ navigation }) => {
   const { state, dispatch } = React.useContext(UserContext)
-  const [pokemons, setPokemons] = React.useState([])
+  const [pokemons, setPokemons] = useState([])
 
   const fetchAllPokemon = async () => {
-    await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
+    await fetch('https://pokeapi.co/api/v2/pokemon?limit=05')
       .then((response) => response.json())
       .then((allpokemon) => {
         allpokemon.results.forEach((pokemon) => {
@@ -74,63 +78,34 @@ export default ({ navigation }) => {
   }
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => handlePokemonInfo(item)}
-      key={item.id}
-      style={[
-        styles.container,
-        {
-          backgroundColor: colorOfSpecies(item.types[0].type.name),
-        },
-      ]}
+    <View
+      style={{
+        margin: 20,
+      }}
     >
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          margin: 20,
-        }}
-      >
-        <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-          <Text style={styles.text}>{item.name}</Text>
-          <Text style={styles.textLabel}>{item.types[0].type.name}</Text>
-          {item.types[1] && (
-            <Text style={styles.textLabel}>{item.types[1]?.type.name}</Text>
-          )}
-        </View>
-      </View>
-      <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>
-        <View>
-          <Text
-            style={{
-              marginTop: 30,
-              fontSize: 20,
-              color: '#FFF',
-              fontWeight: 'bold',
-            }}
-          >
-            #{item.id < 10 ? '00' + item.id : '0' + item.id}
-          </Text>
-        </View>
-        <View>
-          <Image
-            style={styles.image}
-            source={{
-              uri: item.sprites.other['official-artwork'].front_default,
-            }}
-          />
-        </View>
-      </View>
-    </TouchableOpacity>
+      <PokemonCardList
+        onPress={() => handlePokemonInfo(item)}
+        key={item.id}
+        id={item.id}
+        img={item.sprites.other['official-artwork'].front_default}
+        name={item.name}
+        type01={item.types[0].type.name}
+        type02={item.types[1]?.type.name}
+        bg={`${colorOfSpecies(item.types[0].type.name)}88`}
+      />
+    </View>
   )
 
   return (
     <SafeAreaView
       style={{
         paddingTop: StatusBar.currentHeight,
+        paddingBottom: 40,
+        height: '100%',
       }}
     >
-      <Text>Lista de pokemons</Text>
+      <Header />
+
       <FlatList
         data={pokemons}
         renderItem={renderItem}
@@ -144,7 +119,8 @@ export default ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
+    flex: 1,
+    height: 250,
     flexDirection: 'row',
     justifyContent: 'space-between',
     elevation: 1,
@@ -171,7 +147,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   image: {
-    height: 150,
-    width: 150,
+    height: 200,
+    width: 200,
+    right: 50,
   },
 })

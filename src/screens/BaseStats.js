@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import Progress from './Progress'
+import Progress from '../components/Progress'
 
 import { UserContext } from '../context/UserContext'
 

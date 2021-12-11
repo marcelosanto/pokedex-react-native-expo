@@ -8,9 +8,9 @@ import {
   StatusBar,
 } from 'react-native'
 
-import { colorOfSpecies } from '../Data'
+import { colorOfSpecies } from '../../Data'
 
-import { UserContext } from './context/UserContext'
+import { UserContext } from '../context/UserContext'
 
 export default () => {
   const { state } = React.useContext(UserContext)
