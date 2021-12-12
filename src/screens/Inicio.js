@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import {
   View,
   SafeAreaView,
@@ -11,6 +11,7 @@ import {
   Alert,
   Animated,
   TextInput,
+  Dimensions,
 } from 'react-native'
 
 import { CommonActions } from '@react-navigation/native'
@@ -19,13 +20,14 @@ import { colorOfSpecies } from '../../Data'
 import { UserContext } from '../context/UserContext'
 import PokemonCardList from '../components/PokemonCardList'
 import Header from '../components/Header'
+import SearchInput from '../components/SearchInput'
 
 export default ({ navigation }) => {
-  const { state, dispatch } = React.useContext(UserContext)
+  const { state, dispatch } = useContext(UserContext)
   const [pokemons, setPokemons] = useState([])
 
   const fetchAllPokemon = async () => {
-    await fetch('https://pokeapi.co/api/v2/pokemon?limit=50')
+    await fetch('https://pokeapi.co/api/v2/pokemon?limit=6')
       .then((response) => response.json())
       .then((allpokemon) => {
         allpokemon.results.forEach((pokemon) => {
@@ -44,7 +46,7 @@ export default ({ navigation }) => {
       })
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchAllPokemon()
   }, [])
 
@@ -78,11 +80,7 @@ export default ({ navigation }) => {
   }
 
   const renderItem = ({ item }) => (
-    <View
-      style={{
-        margin: 20,
-      }}
-    >
+    <View style={styles.listItem}>
       <PokemonCardList
         onPress={() => handlePokemonInfo(item)}
         key={item.id}
@@ -97,23 +95,33 @@ export default ({ navigation }) => {
   )
 
   return (
-    <SafeAreaView
+    <View
       style={{
+        flex: 1,
         paddingTop: StatusBar.currentHeight,
-        paddingBottom: 40,
         height: '100%',
       }}
     >
-      <Header />
+      <View
+        style={{
+          elevation: 4,
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 10,
+        }}
+      >
+        <Header />
+        <SearchInput />
+      </View>
 
       <FlatList
         data={pokemons}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(_, i) => String(i)}
+        showsVerticalScrollIndicator={false}
       />
-
-      {/*  */}
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -150,5 +158,10 @@ const styles = StyleSheet.create({
     height: 200,
     width: 200,
     right: 50,
+  },
+  listItem: {
+    width: Dimensions.get('window').width,
+    marginTop: 30,
+    marginBottom: 30,
   },
 })
