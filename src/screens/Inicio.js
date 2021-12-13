@@ -13,10 +13,12 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native'
-
 import { CommonActions } from '@react-navigation/native'
+import * as Animatable from 'react-native-animatable'
 
+import { Animations } from '../constants/Animations'
 import { colorOfSpecies } from '../../Data'
+
 import { UserContext } from '../context/UserContext'
 import PokemonCardList from '../components/PokemonCardList'
 import Header from '../components/Header'
@@ -24,31 +26,9 @@ import SearchInput from '../components/SearchInput'
 
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
-  const [pokemons, setPokemons] = useState([])
-
-  const fetchAllPokemon = async () => {
-    await fetch('https://pokeapi.co/api/v2/pokemon?limit=6')
-      .then((response) => response.json())
-      .then((allpokemon) => {
-        allpokemon.results.forEach((pokemon) => {
-          fetchPokemonData(pokemon)
-        })
-      })
-  }
-
-  const fetchPokemonData = async (pokemon) => {
-    let url = pokemon.url
-
-    await fetch(url)
-      .then((response) => response.json())
-      .then(function (pokeData) {
-        setPokemons((oldData) => [...oldData, pokeData])
-      })
-  }
-
-  useEffect(() => {
-    fetchAllPokemon()
-  }, [])
+  const [pokemons, setPokemons] = useState(state.pokemons)
+  const [list, setList] = useState([])
+  const [searchText, setSearchText] = useState('')
 
   const pokemonDetails = async (pokemon) => {
     dispatch({
@@ -79,20 +59,42 @@ export default ({ navigation }) => {
     await pokemonDetails(pokemon)
   }
 
-  const renderItem = ({ item }) => (
-    <View style={styles.listItem}>
-      <PokemonCardList
-        onPress={() => handlePokemonInfo(item)}
-        key={item.id}
-        id={item.id}
-        img={item.sprites.other['official-artwork'].front_default}
-        name={item.name}
-        type01={item.types[0].type.name}
-        type02={item.types[1]?.type.name}
-        bg={`${colorOfSpecies(item.types[0].type.name)}88`}
-      />
-    </View>
+  //gera animação aleatoria
+  // const animation = Animations[Math.floor(Math.random() * Animations.length)]
+  // console.log(animation)
+
+  const renderItem = ({ item, index }) => (
+    <Animatable.View animation='fadeInLeft' duration={1000} delay={index * 300}>
+      <View style={styles.listItem}>
+        <PokemonCardList
+          onPress={() => handlePokemonInfo(item)}
+          key={item.id}
+          id={item.id}
+          img={item.sprites.other['official-artwork'].front_default}
+          name={item.name}
+          type01={item.types[0].type.name}
+          type02={item.types[1]?.type.name}
+          bg={`${colorOfSpecies(item.types[0].type.name)}88`}
+        />
+      </View>
+    </Animatable.View>
   )
+
+  useEffect(() => {
+    if (searchText === '') {
+      setList(state.pokemons)
+    } else {
+      setList(
+        pokemons.filter((item) => {
+          if (item.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+            return true
+          } else {
+            return false
+          }
+        })
+      )
+    }
+  }, [searchText])
 
   return (
     <View
@@ -112,11 +114,14 @@ export default ({ navigation }) => {
         }}
       >
         <Header />
-        <SearchInput />
+        <SearchInput
+          value={searchText}
+          onChangeText={(t) => setSearchText(t)}
+        />
       </View>
 
       <FlatList
-        data={pokemons}
+        data={list}
         renderItem={renderItem}
         keyExtractor={(_, i) => String(i)}
         showsVerticalScrollIndicator={false}

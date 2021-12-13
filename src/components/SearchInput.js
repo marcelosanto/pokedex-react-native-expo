@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, TextInput } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 
-export default () => {
+export default ({ value, onChangeText }) => {
   return (
     <View
       style={{
@@ -16,6 +16,8 @@ export default () => {
     >
       <FontAwesome name='search' size={24} color='black' />
       <TextInput
+        value={value}
+        onChangeText={onChangeText}
         style={{
           height: 60,
           width: '85%',

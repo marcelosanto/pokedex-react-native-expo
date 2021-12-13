@@ -1,6 +1,6 @@
 export const initialState = {
   pokemon: {},
-  pokemons: {},
+  pokemons: [],
   eggroups: {},
 }
 
