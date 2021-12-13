@@ -26,9 +26,23 @@ import SearchInput from '../components/SearchInput'
 
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
-  const [pokemons, setPokemons] = useState(state.pokemons)
+  const [pokemons, setPokemons] = useState([])
   const [list, setList] = useState([])
   const [searchText, setSearchText] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const fetchAllPokemon = async () => {
+    const req = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20`)
+    let response = await req.json()
+    response.results.map((item) => fetchPokemonData(item.url))
+  }
+
+  const fetchPokemonData = async (url) => {
+    const req = await fetch(url)
+    let json = await req.json()
+    setPokemons((old) => [...old, json])
+    setList((old) => [...old, json])
+  }
 
   const pokemonDetails = async (pokemon) => {
     dispatch({
@@ -81,8 +95,12 @@ export default ({ navigation }) => {
   )
 
   useEffect(() => {
+    fetchAllPokemon()
+  }, [loading])
+
+  useEffect(() => {
     if (searchText === '') {
-      setList(state.pokemons)
+      setList(pokemons)
     } else {
       setList(
         pokemons.filter((item) => {

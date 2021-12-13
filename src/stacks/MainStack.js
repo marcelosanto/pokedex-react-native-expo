@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator()
 
 export default () => (
   <Stack.Navigator
-    initialRouteName='Preload'
+    initialRouteName='Inicio'
     screenOptions={{
       headerShown: false,
     }}
