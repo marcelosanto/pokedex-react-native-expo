@@ -10,6 +10,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [React](https://pt-br.reactjs.org/)
 - [React Native](https://reactnative.dev/)
 - [React Navigation](https://reactnavigation.org/)
+- [React Native Animatable](https://github.com/oblador/react-native-animatable)
+
 
 ### Screenshots
 
