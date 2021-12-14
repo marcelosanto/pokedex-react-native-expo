@@ -31,17 +31,23 @@ export default ({ navigation }) => {
   const [searchText, setSearchText] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const fetchAllPokemon = async () => {
-    const req = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20`)
-    let response = await req.json()
-    response.results.map((item) => fetchPokemonData(item.url))
-  }
+  // pega todos pokemons.
+  async function getAllpokemons(qtd = 1) {
+    //pega lista de pokemons
+    const pokemons = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?limit=${qtd}`
+    ).then((res) => res.json())
 
-  const fetchPokemonData = async (url) => {
-    const req = await fetch(url)
-    let json = await req.json()
-    setPokemons((old) => [...old, json])
-    setList((old) => [...old, json])
+    //pega o perfil de cada pokemon
+    const promises = pokemons.results.map((poke) =>
+      fetch(poke.url).then((r) => r.json())
+    )
+
+    //retorna os pokemons apos a promises serem resolvidas
+    const pokem = await Promise.all(promises)
+
+    //add cada pokemon no array obj
+    pokem.map((p) => setPokemons((old) => [...old, p]))
   }
 
   const pokemonDetails = async (pokemon) => {
@@ -95,7 +101,10 @@ export default ({ navigation }) => {
   )
 
   useEffect(() => {
-    fetchAllPokemon()
+    getAllpokemons(10)
+    setTimeout(() => {
+      setList(pokemons)
+    }, 2000)
   }, [loading])
 
   useEffect(() => {
@@ -139,7 +148,7 @@ export default ({ navigation }) => {
       </View>
 
       <FlatList
-        data={list}
+        data={pokemons}
         renderItem={renderItem}
         keyExtractor={(_, i) => String(i)}
         showsVerticalScrollIndicator={false}
