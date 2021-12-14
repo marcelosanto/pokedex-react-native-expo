@@ -47,7 +47,7 @@ export default ({ navigation }) => {
     const pokem = await Promise.all(promises)
 
     //add cada pokemon no array obj
-    pokem.map((p) => setPokemons((old) => [...old, p]))
+    pokem.map((p) => setList((old) => [...old, p]))
   }
 
   const pokemonDetails = async (pokemon) => {
@@ -103,7 +103,7 @@ export default ({ navigation }) => {
   useEffect(() => {
     getAllpokemons(10)
     setTimeout(() => {
-      setList(pokemons)
+      setPokemons(list)
     }, 2000)
   }, [loading])
 
@@ -148,7 +148,7 @@ export default ({ navigation }) => {
       </View>
 
       <FlatList
-        data={pokemons}
+        data={list}
         renderItem={renderItem}
         keyExtractor={(_, i) => String(i)}
         showsVerticalScrollIndicator={false}
