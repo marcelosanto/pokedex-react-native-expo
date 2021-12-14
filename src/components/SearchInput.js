@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, TextInput } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 
 export default ({ value, onChangeText }) => {
@@ -7,24 +7,51 @@ export default ({ value, onChangeText }) => {
     <View
       style={{
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        borderWidth: 1,
-        borderRadius: 25,
-        width: '80%',
+        width: '100%',
       }}
     >
-      <FontAwesome name='search' size={24} color='black' />
-      <TextInput
-        value={value}
-        onChangeText={onChangeText}
+      <View
         style={{
-          height: 60,
-          width: '85%',
-          marginLeft: 10,
+          borderRadius: 10,
+          backgroundColor: '#B0C4DE88',
+          width: '70%',
+          flexDirection: 'row',
+          alignItems: 'center',
         }}
-        placeholder='Nome ou Id.'
-      />
+      >
+        <FontAwesome
+          style={{
+            marginLeft: 10,
+          }}
+          name='search'
+          size={24}
+          color='black'
+        />
+        <TextInput
+          value={value}
+          onChangeText={onChangeText}
+          style={{
+            height: 60,
+            width: '85%',
+            marginLeft: 10,
+          }}
+          placeholder='Nome ou Id.'
+        />
+      </View>
+      <TouchableOpacity
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#483D8B',
+          width: 60,
+          height: 60,
+          borderRadius: 15,
+        }}
+      >
+        <FontAwesome name='sliders' size={30} color='white' />
+      </TouchableOpacity>
     </View>
   )
 }

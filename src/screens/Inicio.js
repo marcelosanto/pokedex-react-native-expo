@@ -29,7 +29,7 @@ export default ({ navigation }) => {
   const [pokemons, setPokemons] = useState([])
   const [list, setList] = useState([])
   const [searchText, setSearchText] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState('5')
 
   // pega todos pokemons.
   async function getAllpokemons(qtd = 1) {
@@ -105,6 +105,7 @@ export default ({ navigation }) => {
     setTimeout(() => {
       setPokemons(list)
     }, 2000)
+    console.log('puxando a lista')
   }, [loading])
 
   useEffect(() => {
@@ -129,6 +130,7 @@ export default ({ navigation }) => {
         flex: 1,
         paddingTop: StatusBar.currentHeight,
         height: '100%',
+        alignItems: 'center',
       }}
     >
       <View
@@ -152,6 +154,8 @@ export default ({ navigation }) => {
         renderItem={renderItem}
         keyExtractor={(_, i) => String(i)}
         showsVerticalScrollIndicator={false}
+        horizontal={false}
+        numColumns={2}
       />
     </View>
   )
@@ -192,7 +196,7 @@ const styles = StyleSheet.create({
     right: 50,
   },
   listItem: {
-    width: Dimensions.get('window').width,
+    width: (Dimensions.get('window').width - 20) / 2,
     marginTop: 30,
     marginBottom: 30,
   },
