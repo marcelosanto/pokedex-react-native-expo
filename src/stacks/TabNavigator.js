@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, SafeAreaView, StatusBar } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { useRoute } from '@react-navigation/native'
 
 import About from '../screens/About'
 import Moves from '../screens/Moves'

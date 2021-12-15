@@ -29,7 +29,7 @@ export default ({ navigation }) => {
   const [pokemons, setPokemons] = useState([])
   const [list, setList] = useState([])
   const [searchText, setSearchText] = useState('')
-  const [loading, setLoading] = useState('5')
+  const [loading, setLoading] = useState(true)
 
   // pega todos pokemons.
   async function getAllpokemons(qtd = 1) {
@@ -47,7 +47,10 @@ export default ({ navigation }) => {
     const pokem = await Promise.all(promises)
 
     //add cada pokemon no array obj
-    pokem.map((p) => setList((old) => [...old, p]))
+    pokem.map((p) => {
+      setList((old) => [...old, p])
+      setPokemons((old) => [...old, p])
+    })
   }
 
   const pokemonDetails = async (pokemon) => {
@@ -101,10 +104,7 @@ export default ({ navigation }) => {
   )
 
   useEffect(() => {
-    getAllpokemons(10)
-    setTimeout(() => {
-      setPokemons(list)
-    }, 2000)
+    getAllpokemons(5)
     console.log('puxando a lista')
   }, [loading])
 
@@ -112,6 +112,7 @@ export default ({ navigation }) => {
     if (searchText === '') {
       setList(pokemons)
     } else {
+      console.log('bateu aqui')
       setList(
         pokemons.filter((item) => {
           if (item.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
@@ -152,10 +153,16 @@ export default ({ navigation }) => {
       <FlatList
         data={list}
         renderItem={renderItem}
-        keyExtractor={(_, i) => String(i)}
+        keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         horizontal={false}
         numColumns={2}
+        // Performance settings
+        removeClippedSubviews={true} // Unmount components when outside of window
+        initialNumToRender={2} // Reduce initial render amount
+        maxToRenderPerBatch={1} // Reduce number in each render batch
+        updateCellsBatchingPeriod={100} // Increase time between renders
+        windowSize={7} // Reduce the window size
       />
     </View>
   )
