@@ -23,6 +23,7 @@ import { UserContext } from '../context/UserContext'
 import PokemonCardList from '../components/PokemonCardList'
 import Header from '../components/Header'
 import SearchInput from '../components/SearchInput'
+import Modal from '../components/Modal'
 
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
@@ -30,6 +31,7 @@ export default ({ navigation }) => {
   const [list, setList] = useState([])
   const [searchText, setSearchText] = useState('')
   const [loading, setLoading] = useState(true)
+  const [visible, setVisible] = useState(false)
 
   // pega todos pokemons.
   async function getAllpokemons(qtd = 1) {
@@ -104,7 +106,7 @@ export default ({ navigation }) => {
   )
 
   useEffect(() => {
-    getAllpokemons(5)
+    //getAllpokemons(5)
     console.log('puxando a lista')
   }, [loading])
 
@@ -147,8 +149,11 @@ export default ({ navigation }) => {
         <SearchInput
           value={searchText}
           onChangeText={(t) => setSearchText(t)}
+          buttonPress={() => setVisible(!visible)}
         />
       </View>
+
+      <Modal visible={visible} onPress={() => setVisible(!visible)} />
 
       <FlatList
         data={list}

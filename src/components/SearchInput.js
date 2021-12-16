@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, TextInput, TouchableOpacity } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 
-export default ({ value, onChangeText }) => {
+export default ({ value, onChangeText, buttonPress }) => {
   return (
     <View
       style={{
@@ -50,7 +50,12 @@ export default ({ value, onChangeText }) => {
           borderRadius: 15,
         }}
       >
-        <FontAwesome name='sliders' size={30} color='white' />
+        <FontAwesome
+          name='sliders'
+          size={30}
+          color='white'
+          onPress={buttonPress}
+        />
       </TouchableOpacity>
     </View>
   )
