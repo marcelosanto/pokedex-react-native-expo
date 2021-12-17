@@ -12,19 +12,14 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [React Navigation](https://reactnavigation.org/)
 - [React Native Animatable](https://github.com/oblador/react-native-animatable)
 
-
 ### Inspiração
+
 - https://dribbble.com/shots/15064790-PokeDex-App
 - https://dribbble.com/shots/6540871-Pokedex-App
 
-
 ### Screenshots
 
-![List Mobile](assets/images/list.jpeg)
-![List Mobile](assets/images/list2.jpeg)
-![About Mobile](assets/images/about.jpeg)
-![Moves Mobile](assets/images/moves.jpeg)
-![Stats Mobile](assets/images/stats.jpeg)
+![Gif Mobile](assets/pokedex.gif)
 
 ### Autor
 
