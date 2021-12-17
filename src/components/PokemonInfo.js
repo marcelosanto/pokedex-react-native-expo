@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   View,
   SafeAreaView,
@@ -13,25 +13,15 @@ import { colorOfSpecies } from '../../Data'
 import { UserContext } from '../context/UserContext'
 
 export default () => {
-  const { state } = React.useContext(UserContext)
+  const { state } = useContext(UserContext)
 
   return (
-    <View
-      style={[
-        styles.container,
-
-        {
-          backgroundColor: `${colorOfSpecies(
-            state.pokemon.types[0].type.name
-          )}88`,
-        },
-      ]}
-    >
+    <View style={styles.container}>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          margin: 20,
+          margin: 10,
         }}
       >
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
@@ -84,7 +74,8 @@ export default () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 270,
+    height: 285,
+    backgroundColor: 'transparent',
     paddingTop: StatusBar.currentHeight,
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -108,7 +99,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   image: {
-    height: 150,
-    width: 150,
+    height: 180,
+    width: 180,
   },
 })

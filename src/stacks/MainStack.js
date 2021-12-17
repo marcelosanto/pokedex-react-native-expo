@@ -8,14 +8,17 @@ import Preload from '../screens/Preload'
 const Stack = createNativeStackNavigator()
 
 export default () => (
-  <Stack.Navigator
-    initialRouteName='Inicio'
-    screenOptions={{
-      headerShown: false,
-    }}
-  >
+  <Stack.Navigator initialRouteName='Inicio'>
     <Stack.Screen name='Preload' component={Preload} />
-    <Stack.Screen name='Inicio' component={Inicio} />
-    <Stack.Screen name='TabNavigator' component={TabNavigator} />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name='Inicio'
+      component={Inicio}
+    />
+    <Stack.Screen
+      options={{ title: 'Detalhes' }}
+      name='TabNavigator'
+      component={TabNavigator}
+    />
   </Stack.Navigator>
 )

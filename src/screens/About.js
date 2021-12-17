@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Foundation } from '@expo/vector-icons'
 
 import { UserContext } from '../context/UserContext'
 
 export default () => {
-  const { state } = React.useContext(UserContext)
+  const { state } = useContext(UserContext)
 
   const PokemonAboutInfo = ({ title, textInfo }) => {
     return (
@@ -64,7 +64,7 @@ export default () => {
           </View>
         </View>
       </View>
-      <View style={{}}>
+      <View>
         <Text style={styles.textTitle}>Breeding</Text>
 
         <View style={styles.containerDetails}>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   text: { marginBottom: 20 },
   textTitle: {
-    marginTop: 20,
+    marginTop: 0,
     marginBottom: 20,
     fontWeight: 'bold',
     fontSize: 20,

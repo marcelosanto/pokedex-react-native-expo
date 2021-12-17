@@ -80,8 +80,8 @@ export default ({ navigation }) => {
     }
   }
 
-  const handlePokemonInfo = async (pokemon) => {
-    await pokemonDetails(pokemon)
+  const handlePokemonInfo = (pokemon) => {
+    pokemonDetails(pokemon)
   }
 
   //gera animação aleatoria
@@ -106,7 +106,7 @@ export default ({ navigation }) => {
   )
 
   useEffect(() => {
-    //getAllpokemons(5)
+    getAllpokemons(20)
     console.log('puxando a lista')
   }, [loading])
 
