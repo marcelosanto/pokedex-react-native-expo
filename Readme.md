@@ -21,6 +21,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ![Gif Mobile](assets/pokedex.gif)
 
+#gif
+<img src="https://raw.githubusercontent.com/marcelosanto/pokedex-react-native-expo/master/assets/pokedex.gif">
+
 ### Autor
 
 ---
