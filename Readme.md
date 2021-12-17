@@ -1,7 +1,5 @@
 # Pokedex React Native
 
-## App que mostra pokemons e seus respectivos perfis
-
 ### 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
@@ -30,4 +28,4 @@ As seguintes ferramentas foram usadas na construção do projeto:
  <br />
  <sub><b>Marcelo Santos</b></sub></a>
 
-Feito com ❤️ por Marcelo Santos 👋🏽 Entre em contato!
+Feito com ❤️ por Marcelo Santos
