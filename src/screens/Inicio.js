@@ -143,7 +143,7 @@ export default ({ navigation }) => {
   )
 
   useEffect(() => {
-    getAllpokemons(20)
+    // getAllpokemons(20)
     console.log('puxando a lista')
   }, [loading])
 

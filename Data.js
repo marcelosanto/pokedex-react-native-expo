@@ -1,16 +1,3 @@
-//https://pokeapi.co/api/v2/pokemon-species/{id}
-//"evolution_chain": {
-//"url": "https://pokeapi.co/api/v2/evolution-chain/1/"
-//},
-
-//https://pokeapi.co/api/v2/evolution-chain/{id}
-
-export const family = [
-  'https://cdn.traction.one/pokedex/pokemon/1.png',
-  'https://cdn.traction.one/pokedex/pokemon/2.png',
-  'https://cdn.traction.one/pokedex/pokemon/3.png',
-]
-
 export const colorOfSpecies = (color) => {
   if (color == 'normal') return '#A8A878'
   if (color == 'fire') return '#F08030'
