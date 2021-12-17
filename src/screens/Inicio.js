@@ -77,14 +77,14 @@ export default ({ navigation }) => {
               {
                 name: r.chain.species.name,
                 level: 0,
-                id: r.chain.species.url.substr(-2).replace('/', ''),
+                id: r.chain.species.url.substr(-5).replace(/[^0-9]/g, ''),
               },
               {
                 name: r.chain.evolves_to[0].species.name,
                 level: r.chain.evolves_to[0].evolution_details[0].min_level,
                 id: r.chain.evolves_to[0].species.url
-                  .substr(-2)
-                  .replace('/', ''),
+                  .substr(-5)
+                  .replace(/[^0-9]/g, ''),
               },
               {
                 name: r.chain.evolves_to[0].evolves_to[0]?.species.name,
@@ -92,8 +92,8 @@ export default ({ navigation }) => {
                   r.chain.evolves_to[0].evolves_to[0]?.evolution_details[0]
                     .min_level,
                 id: r.chain.evolves_to[0].evolves_to[0]?.species.url
-                  .substr(-2)
-                  .replace('/', ''),
+                  .substr(-5)
+                  .replace(/[^0-9]/g, ''),
               },
             ],
           },
