@@ -11,7 +11,7 @@ export default () => {
     return (
       <>
         <View style={{ width: 100 }}>
-          <Text style={{ marginBottom: 20 }}>{title}</Text>
+          <Text style={styles.text}>{title}</Text>
         </View>
 
         <View style={{ width: 150 }}>
@@ -112,10 +112,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  text: { marginBottom: 20 },
+  text: { marginBottom: 10, fontWeight: 'bold', fontSize: 16 },
   textTitle: {
     marginTop: 0,
-    marginBottom: 20,
+    marginBottom: 15,
     fontWeight: 'bold',
     fontSize: 20,
   },

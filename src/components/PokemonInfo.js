@@ -14,7 +14,6 @@ import { UserContext } from '../context/UserContext'
 
 export default () => {
   const { state } = useContext(UserContext)
-
   return (
     <View style={styles.container}>
       <View
@@ -31,11 +30,29 @@ export default () => {
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-around' }}
             >
-              <Text style={styles.textLabel}>
+              <Text
+                style={[
+                  styles.textLabel,
+                  {
+                    backgroundColor: colorOfSpecies(
+                      state.pokemon.types[0]?.type.name
+                    ),
+                  },
+                ]}
+              >
                 {state.pokemon.types[0]?.type.name}
               </Text>
 
-              <Text style={styles.textLabel}>
+              <Text
+                style={[
+                  styles.textLabel,
+                  {
+                    backgroundColor: colorOfSpecies(
+                      state.pokemon.types[1]?.type.name
+                    ),
+                  },
+                ]}
+              >
                 {state.pokemon.types[1]?.type.name}
               </Text>
             </View>

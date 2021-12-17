@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, StyleSheet } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 
 import { family } from '../../Data'
@@ -31,10 +31,10 @@ export default () => {
               uri: `https://cdn.traction.one/pokedex/pokemon/${pokemonImg[0].id}.png`,
             }}
           />
-          <Text>{pokemonImg[0].name}</Text>
+          <Text style={styles.nomePokemon}>{pokemonImg[0].name}</Text>
         </View>
         <View>
-          <Text>Level: {pokemonImg[1].level}</Text>
+          <Text style={styles.nomePokemon}>Level: {pokemonImg[1].level}</Text>
           <AntDesign name='arrowright' size={48} color='black' />
         </View>
 
@@ -45,7 +45,7 @@ export default () => {
               uri: `https://cdn.traction.one/pokedex/pokemon/${pokemonImg[1].id}.png`,
             }}
           />
-          <Text>{pokemonImg[1].name}</Text>
+          <Text style={styles.nomePokemon}>{pokemonImg[1].name}</Text>
         </View>
       </View>
       {pokemonImg[2].id != undefined && (
@@ -64,10 +64,10 @@ export default () => {
                 uri: `https://cdn.traction.one/pokedex/pokemon/${pokemonImg[1].id}.png`,
               }}
             />
-            <Text>{pokemonImg[1].name}</Text>
+            <Text style={styles.nomePokemon}>{pokemonImg[1].name}</Text>
           </View>
           <View>
-            <Text>Level: {pokemonImg[2].level}</Text>
+            <Text style={styles.nomePokemon}>Level: {pokemonImg[2].level}</Text>
             <AntDesign name='arrowright' size={48} color='black' />
           </View>
 
@@ -78,10 +78,14 @@ export default () => {
                 uri: `https://cdn.traction.one/pokedex/pokemon/${pokemonImg[2].id}.png`,
               }}
             />
-            <Text>{pokemonImg[2].name}</Text>
+            <Text style={styles.nomePokemon}>{pokemonImg[2].name}</Text>
           </View>
         </View>
       )}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  nomePokemon: { textTransform: 'capitalize', fontWeight: 'bold' },
+})
