@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { View, Image, Text } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 
 import { family } from '../../Data'
+import { UserContext } from '../context/UserContext'
 
 export default () => {
+  const { state } = useContext(UserContext)
+  const [pokemonImg, setPokemonImg] = useState([])
+
   return (
     <View
       style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20 }}
     >
-      {family.map((item) => (
+      {state.pokemonEvolucao.map((item) => (
         <View style={{ alignItems: 'center' }} key={item.toString()}>
-          <Image
-            style={{ width: 100, height: 100, marginBottom: 20 }}
-            source={{ uri: item }}
-          />
-          <AntDesign name='caretdown' size={24} color='black' />
+          <Text>{item.name}</Text>
+          <Text>{item.level}</Text>
+          <Text>{item.id}</Text>
         </View>
       ))}
     </View>

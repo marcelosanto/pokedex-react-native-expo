@@ -63,6 +63,43 @@ export default ({ navigation }) => {
       },
     })
 
+    const pokemonEvo = await fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`
+    )
+      .then((res) => res.json())
+      .then((r) => fetch(r.evolution_chain.url))
+      .then((r) => r.json())
+      .then((r) =>
+        dispatch({
+          type: 'setPokemonEvolucao',
+          payload: {
+            pokemonEvolucao: [
+              {
+                name: r.chain.species.name,
+                level: 0,
+                id: r.chain.species.url.substr(-2).replace('/', ''),
+              },
+              {
+                name: r.chain.evolves_to[0].species.name,
+                level: r.chain.evolves_to[0].evolution_details[0].min_level,
+                id: r.chain.evolves_to[0].species.url
+                  .substr(-2)
+                  .replace('/', ''),
+              },
+              {
+                name: r.chain.evolves_to[0].evolves_to[0]?.species.name,
+                level:
+                  r.chain.evolves_to[0].evolves_to[0]?.evolution_details[0]
+                    .min_level,
+                id: r.chain.evolves_to[0].evolves_to[0]?.species.url
+                  .substr(-2)
+                  .replace('/', ''),
+              },
+            ],
+          },
+        })
+      )
+
     const req = await fetch(
       `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`
     )
