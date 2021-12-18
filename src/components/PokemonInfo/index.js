@@ -1,16 +1,11 @@
 import React, { useContext } from 'react'
-import {
-  View,
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  Image,
-  StatusBar,
-} from 'react-native'
+import { View, SafeAreaView, Text, Image } from 'react-native'
 
-import { colorOfSpecies } from '../../Data'
+import { styles } from './styles'
 
-import { UserContext } from '../context/UserContext'
+import { colorOfSpecies } from '../../utils/utils'
+
+import { UserContext } from '../../context/UserContext'
 
 export default () => {
   const { state } = useContext(UserContext)
@@ -88,35 +83,3 @@ export default () => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: 285,
-    backgroundColor: 'transparent',
-    paddingTop: StatusBar.currentHeight,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    elevation: 1,
-  },
-  text: {
-    fontSize: 40,
-    color: '#FFF',
-    fontWeight: 'bold',
-    textTransform: 'capitalize',
-  },
-  textLabel: {
-    borderRadius: 100,
-    width: 90,
-    fontSize: 20,
-    textAlign: 'center',
-    backgroundColor: '#FFF',
-    opacity: 0.5,
-    marginLeft: 15,
-    color: 'black',
-    textTransform: 'capitalize',
-  },
-  image: {
-    height: 180,
-    width: 180,
-  },
-})
