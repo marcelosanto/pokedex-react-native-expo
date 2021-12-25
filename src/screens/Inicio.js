@@ -25,13 +25,17 @@ import Header from '../components/Header'
 import SearchInput from '../components/SearchInput'
 import Modal from '../components/Modal'
 
+import { usePokemonsStore } from '../store'
+
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
-  const [pokemons, setPokemons] = useState([])
+  //const [pokemons, setPokemons] = useState([])
   const [list, setList] = useState([])
   const [searchText, setSearchText] = useState('')
   const [loading, setLoading] = useState(true)
   const [visible, setVisible] = useState(false)
+
+  const pokemons = usePokemonsStore((state) => state.pokemons)
 
   // pega todos pokemons.
   async function getAllpokemons(qtd = 1) {
@@ -143,26 +147,29 @@ export default ({ navigation }) => {
   )
 
   useEffect(() => {
-    getAllpokemons(20)
+    //getAllpokemons(20)
     console.log('puxando a lista')
-  }, [loading])
+    setTimeout(() => {
+      console.log(pokemons.id)
+    }, 5000)
+  }, [])
 
-  useEffect(() => {
-    if (searchText === '') {
-      setList(pokemons)
-    } else {
-      console.log('bateu aqui')
-      setList(
-        pokemons.filter((item) => {
-          if (item.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
-            return true
-          } else {
-            return false
-          }
-        })
-      )
-    }
-  }, [searchText])
+  // useEffect(() => {
+  //   if (searchText === '') {
+  //     setList(pokemons)
+  //   } else {
+  //     console.log('bateu aqui')
+  //     setList(
+  //       pokemons.filter((item) => {
+  //         if (item.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+  //           return true
+  //         } else {
+  //           return false
+  //         }
+  //       })
+  //     )
+  //   }
+  // }, [searchText])
 
   return (
     <View
