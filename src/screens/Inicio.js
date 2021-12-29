@@ -27,7 +27,9 @@ import Modal from '../components/Modal'
 
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
-  const [pokemons, setPokemons] = useState(state.pokemons)
+  const [pokemons, setPokemons] = useState(
+    state.pokemons.sort((a, b) => a.id - b.id)
+  )
   const [list, setList] = useState([])
   const [searchText, setSearchText] = useState('')
   const [loading, setLoading] = useState(true)
@@ -174,11 +176,11 @@ export default ({ navigation }) => {
           horizontal={false}
           numColumns={2}
           // Performance settings
-          removeClippedSubviews={true} // Unmount components when outside of window
-          initialNumToRender={2} // Reduce initial render amount
-          maxToRenderPerBatch={1} // Reduce number in each render batch
-          updateCellsBatchingPeriod={100} // Increase time between renders
-          windowSize={7} // Reduce the window size
+          // removeClippedSubviews={true} // Unmount components when outside of window
+          // initialNumToRender={10} // Reduce initial render amount
+          // maxToRenderPerBatch={10} // Reduce number in each render batch
+          // updateCellsBatchingPeriod={20} // Increase time between renders
+          // windowSize={7} // Reduce the window size
         />
       )}
     </View>
