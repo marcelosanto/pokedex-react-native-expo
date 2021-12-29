@@ -10,7 +10,6 @@ import PokemonInfo from '../components/PokemonInfo'
 
 import { UserContext } from '../context/UserContext'
 import { colorOfSpecies } from '../../Data'
-import Header from '../components/Header'
 
 const Tab = createMaterialTopTabNavigator()
 

@@ -25,8 +25,6 @@ import Header from '../components/Header'
 import SearchInput from '../components/SearchInput'
 import Modal from '../components/Modal'
 
-import { usePokemonsStore } from '../store'
-
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
   const [pokemons, setPokemons] = useState([])
@@ -35,58 +33,39 @@ export default ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [visible, setVisible] = useState(false)
 
-  // const pokemons = usePokemonsStore((state) => state.pokemons)
-
   // pega todos pokemons.
   async function getAllpokemons(qtd = 1) {
     //pega lista de pokemons
     const pokemons = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${qtd}`
-    ).then((res) => res.json())
-
-    //pega o perfil de cada pokemon
-    const promises = pokemons.results.map((poke) =>
-      fetch(poke.url).then((r) => r.json())
     )
-
-    //retorna os pokemons apos a promises serem resolvidas
-    const pokem = await Promise.all(promises)
-
-    //add cada pokemon no array obj
-    pokem.map((pokemon) => {
-      setList((old) => [
-        ...old,
-        {
-          id: pokemon.id,
-          name: pokemon.name,
-          height: pokemon.height,
-          weight: pokemon.weight,
-          hab01: pokemon.abilities[0]?.ability.name,
-          hab02: pokemon.abilities[1]?.ability.name,
-          image: pokemon.sprites.other['official-artwork'].front_default,
-          type01: pokemon.types[0].type.name,
-          type02: pokemon.types[1]?.type.name,
-          stats: pokemon.stats,
-          moves: pokemon.moves,
-        },
-      ])
-      setPokemons((old) => [
-        ...old,
-        {
-          id: pokemon.id,
-          name: pokemon.name,
-          height: pokemon.height,
-          weight: pokemon.weight,
-          hab01: pokemon.abilities[0]?.ability.name,
-          hab02: pokemon.abilities[1]?.ability.name,
-          image: pokemon.sprites.other['official-artwork'].front_default,
-          type01: pokemon.types[0].type.name,
-          type02: pokemon.types[1]?.type.name,
-          stats: pokemon.stats,
-          moves: pokemon.moves,
-        },
-      ])
-    })
+      .then((res) => res.json())
+      .then((res) =>
+        res.results.map((poke) =>
+          fetch(poke.url)
+            .then((r) => r.json())
+            .then((pokemon) => {
+              setPokemons((old) => [
+                ...old,
+                {
+                  id: pokemon.id,
+                  name: pokemon.name,
+                  height: pokemon.height,
+                  weight: pokemon.weight,
+                  hab01: pokemon.abilities[0]?.ability.name,
+                  hab02: pokemon.abilities[1]?.ability.name,
+                  image:
+                    pokemon.sprites.other['official-artwork'].front_default,
+                  type01: pokemon.types[0].type.name,
+                  type02: pokemon.types[1]?.type.name,
+                  stats: pokemon.stats,
+                  moves: pokemon.moves,
+                },
+              ])
+              setList(pokemons)
+            })
+        )
+      )
   }
 
   const pokemonDetails = async (pokemon) => {
@@ -178,10 +157,6 @@ export default ({ navigation }) => {
 
   useEffect(() => {
     getAllpokemons(5)
-    console.log('puxando a lista')
-    setTimeout(() => {
-      console.log(list)
-    }, 5000)
   }, [])
 
   useEffect(() => {
