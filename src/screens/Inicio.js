@@ -29,13 +29,13 @@ import { usePokemonsStore } from '../store'
 
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
-  //const [pokemons, setPokemons] = useState([])
+  const [pokemons, setPokemons] = useState([])
   const [list, setList] = useState([])
   const [searchText, setSearchText] = useState('')
   const [loading, setLoading] = useState(true)
   const [visible, setVisible] = useState(false)
 
-  const pokemons = usePokemonsStore((state) => state.pokemons)
+  // const pokemons = usePokemonsStore((state) => state.pokemons)
 
   // pega todos pokemons.
   async function getAllpokemons(qtd = 1) {
@@ -53,9 +53,39 @@ export default ({ navigation }) => {
     const pokem = await Promise.all(promises)
 
     //add cada pokemon no array obj
-    pokem.map((p) => {
-      setList((old) => [...old, p])
-      setPokemons((old) => [...old, p])
+    pokem.map((pokemon) => {
+      setList((old) => [
+        ...old,
+        {
+          id: pokemon.id,
+          name: pokemon.name,
+          height: pokemon.height,
+          weight: pokemon.weight,
+          hab01: pokemon.abilities[0]?.ability.name,
+          hab02: pokemon.abilities[1]?.ability.name,
+          image: pokemon.sprites.other['official-artwork'].front_default,
+          type01: pokemon.types[0].type.name,
+          type02: pokemon.types[1]?.type.name,
+          stats: pokemon.stats,
+          moves: pokemon.moves,
+        },
+      ])
+      setPokemons((old) => [
+        ...old,
+        {
+          id: pokemon.id,
+          name: pokemon.name,
+          height: pokemon.height,
+          weight: pokemon.weight,
+          hab01: pokemon.abilities[0]?.ability.name,
+          hab02: pokemon.abilities[1]?.ability.name,
+          image: pokemon.sprites.other['official-artwork'].front_default,
+          type01: pokemon.types[0].type.name,
+          type02: pokemon.types[1]?.type.name,
+          stats: pokemon.stats,
+          moves: pokemon.moves,
+        },
+      ])
     })
   }
 
@@ -136,40 +166,40 @@ export default ({ navigation }) => {
           onPress={() => handlePokemonInfo(item)}
           key={item.id}
           id={item.id}
-          img={item.sprites.other['official-artwork'].front_default}
+          img={item.image}
           name={item.name}
-          type01={item.types[0].type.name}
-          type02={item.types[1]?.type.name}
-          bg={`${colorOfSpecies(item.types[0].type.name)}88`}
+          type01={item.type01}
+          type02={item.type02}
+          bg={`${colorOfSpecies(item.type01)}88`}
         />
       </View>
     </Animatable.View>
   )
 
   useEffect(() => {
-    //getAllpokemons(20)
+    getAllpokemons(5)
     console.log('puxando a lista')
     setTimeout(() => {
-      console.log(pokemons.id)
+      console.log(list)
     }, 5000)
   }, [])
 
-  // useEffect(() => {
-  //   if (searchText === '') {
-  //     setList(pokemons)
-  //   } else {
-  //     console.log('bateu aqui')
-  //     setList(
-  //       pokemons.filter((item) => {
-  //         if (item.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
-  //           return true
-  //         } else {
-  //           return false
-  //         }
-  //       })
-  //     )
-  //   }
-  // }, [searchText])
+  useEffect(() => {
+    if (searchText === '') {
+      setList(pokemons)
+    } else {
+      console.log('bateu aqui')
+      setList(
+        pokemons.filter((item) => {
+          if (item.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+            return true
+          } else {
+            return false
+          }
+        })
+      )
+    }
+  }, [searchText])
 
   return (
     <View
@@ -199,20 +229,22 @@ export default ({ navigation }) => {
 
       <Modal visible={visible} onPress={() => setVisible(!visible)} />
 
-      <FlatList
-        data={list}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        horizontal={false}
-        numColumns={2}
-        // Performance settings
-        removeClippedSubviews={true} // Unmount components when outside of window
-        initialNumToRender={2} // Reduce initial render amount
-        maxToRenderPerBatch={1} // Reduce number in each render batch
-        updateCellsBatchingPeriod={100} // Increase time between renders
-        windowSize={7} // Reduce the window size
-      />
+      {pokemons && (
+        <FlatList
+          data={list}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          horizontal={false}
+          numColumns={2}
+          // Performance settings
+          removeClippedSubviews={true} // Unmount components when outside of window
+          initialNumToRender={2} // Reduce initial render amount
+          maxToRenderPerBatch={1} // Reduce number in each render batch
+          updateCellsBatchingPeriod={100} // Increase time between renders
+          windowSize={7} // Reduce the window size
+        />
+      )}
     </View>
   )
 }

@@ -58,7 +58,7 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {`${state.pokemon.abilities[0]?.ability.name}, ${state.pokemon.abilities[1]?.ability.name}
+              {`${state.pokemon.hab01}, ${state.pokemon.hab02}
                  `}
             </Text>
           </View>

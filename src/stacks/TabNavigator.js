@@ -21,9 +21,7 @@ export default () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: `${colorOfSpecies(
-          state.pokemon.types[0].type.name
-        )}88`,
+        backgroundColor: `${colorOfSpecies(state.pokemon.type01)}88`,
         paddingTop: StatusBar.currentHeight - 30,
       }}
     >

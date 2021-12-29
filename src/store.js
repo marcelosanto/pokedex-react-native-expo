@@ -9,7 +9,7 @@ const pokeStore = (set) => ({
 
 export const usePokemonsStore = create(pokeStore)
 
-fetch(`https://pokeapi.co/api/v2/pokemon?limit=20`)
+fetch(`https://pokeapi.co/api/v2/pokemon?limit=5`)
   .then((res) => res.json())
   .then((res) =>
     res.results.map((poke) =>

@@ -21,7 +21,7 @@ export default () => {
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
           <Text style={styles.text}>{state.pokemon.name}</Text>
 
-          {state.pokemon.types[1] ? (
+          {state.pokemon.type02 ? (
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-around' }}
             >
@@ -29,33 +29,27 @@ export default () => {
                 style={[
                   styles.textLabel,
                   {
-                    backgroundColor: colorOfSpecies(
-                      state.pokemon.types[0]?.type.name
-                    ),
+                    backgroundColor: colorOfSpecies(state.pokemon.type01),
                   },
                 ]}
               >
-                {state.pokemon.types[0]?.type.name}
+                {state.pokemon.type01}
               </Text>
 
               <Text
                 style={[
                   styles.textLabel,
                   {
-                    backgroundColor: colorOfSpecies(
-                      state.pokemon.types[1]?.type.name
-                    ),
+                    backgroundColor: colorOfSpecies(state.pokemon.type02),
                   },
                 ]}
               >
-                {state.pokemon.types[1]?.type.name}
+                {state.pokemon.type02}
               </Text>
             </View>
           ) : (
             <View style={{ width: '100%' }}>
-              <Text style={styles.textLabel}>
-                {state.pokemon.types[0]?.type.name}
-              </Text>
+              <Text style={styles.textLabel}>{state.pokemon.type01}</Text>
             </View>
           )}
         </View>
@@ -76,7 +70,7 @@ export default () => {
         <Image
           style={styles.image}
           source={{
-            uri: state.pokemon.sprites.other['official-artwork'].front_default,
+            uri: state.pokemon.image,
           }}
         />
       </View>
