@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { View, Text, StatusBar, Image, TouchableOpacity } from 'react-native'
+import { colorOfSpecies } from '../../utils/utils'
 
 import { styles } from './styles'
 
-export default ({ id, img, name, type01, type02, bg, onPress }) => {
+const PokemonCardList = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <View style={[styles.card, { backgroundColor: bg }]}>
-        <Image style={styles.image} source={{ uri: img }} />
+      <View
+        style={[
+          styles.card,
+          { backgroundColor: `${colorOfSpecies(item.type01)}88` },
+        ]}
+      >
+        <Image style={styles.image} source={{ uri: item.image }} />
         <View
           style={{
             width: '100%',
@@ -15,12 +21,18 @@ export default ({ id, img, name, type01, type02, bg, onPress }) => {
             alignItems: 'center',
           }}
         >
-          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.title}>{item.name}</Text>
           <Text style={styles.title}>
-            {id < 10 ? '00' + id : id < 100 ? '0' + id : id}
+            {item.id < 10
+              ? '00' + item.id
+              : item.id < 100
+              ? '0' + item.id
+              : item.id}
           </Text>
         </View>
       </View>
     </TouchableOpacity>
   )
 }
+
+export default memo(PokemonCardList)

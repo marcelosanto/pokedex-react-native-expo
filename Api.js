@@ -9,7 +9,7 @@ export default {
     return json
   },
   getAllPokemon: async () => {
-    await fetch(`${BASE_URL}?limit=30`)
+    await fetch(`${BASE_URL}?limit=151`)
       .then((res) => res.json())
       .then((res) =>
         res.results.map((poke) => {

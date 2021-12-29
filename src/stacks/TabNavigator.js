@@ -9,7 +9,7 @@ import BaseStats from '../screens/BaseStats'
 import PokemonInfo from '../components/PokemonInfo'
 
 import { UserContext } from '../context/UserContext'
-import { colorOfSpecies } from '../../Data'
+import { colorOfSpecies } from '../utils/utils'
 
 const Tab = createMaterialTopTabNavigator()
 

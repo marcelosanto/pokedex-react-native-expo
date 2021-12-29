@@ -12,12 +12,15 @@ import {
   Animated,
   TextInput,
   Dimensions,
+  VirtualizedList,
 } from 'react-native'
 import { CommonActions } from '@react-navigation/native'
+import BigList from 'react-native-big-list'
+
 import * as Animatable from 'react-native-animatable'
 
 import { Animations } from '../constants/Animations'
-import { colorOfSpecies } from '../../Data'
+import { colorOfSpecies } from '../utils/utils'
 
 import { UserContext } from '../context/UserContext'
 import PokemonCardList from '../components/PokemonCardList'
@@ -101,25 +104,10 @@ export default ({ navigation }) => {
     pokemonDetails(pokemon)
   }
 
-  //gera animação aleatoria
-  // const animation = Animations[Math.floor(Math.random() * Animations.length)]
-  // console.log(animation)
-
   const renderItem = ({ item, index }) => (
-    <Animatable.View animation='fadeInLeft' duration={1000} delay={index * 300}>
-      <View style={styles.listItem}>
-        <PokemonCardList
-          onPress={() => handlePokemonInfo(item)}
-          key={item.id}
-          id={item.id}
-          img={item.image}
-          name={item.name}
-          type01={item.type01}
-          type02={item.type02}
-          bg={`${colorOfSpecies(item.type01)}88`}
-        />
-      </View>
-    </Animatable.View>
+    <View style={styles.listItem}>
+      <PokemonCardList onPress={() => handlePokemonInfo(item)} item={item} />
+    </View>
   )
 
   useEffect(() => {
@@ -171,16 +159,16 @@ export default ({ navigation }) => {
         <FlatList
           data={list}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
+          keyExtractor={(item) => item.id.toString()}
           horizontal={false}
           numColumns={2}
           // Performance settings
-          // removeClippedSubviews={true} // Unmount components when outside of window
-          // initialNumToRender={10} // Reduce initial render amount
-          // maxToRenderPerBatch={10} // Reduce number in each render batch
-          // updateCellsBatchingPeriod={20} // Increase time between renders
-          // windowSize={7} // Reduce the window size
+          removeClippedSubviews={true} // Unmount components when outside of window
+          initialNumToRender={10} // Reduce initial render amount
+          maxToRenderPerBatch={10} // Reduce number in each render batch
+          updateCellsBatchingPeriod={20} // Increase time between renders
+          windowSize={7} // Reduce the window size
         />
       )}
     </View>

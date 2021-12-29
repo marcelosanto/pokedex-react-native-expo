@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react'
 import { View, Image, Text, StyleSheet } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 
-import { family } from '../../Data'
 import { UserContext } from '../context/UserContext'
 
 export default () => {
