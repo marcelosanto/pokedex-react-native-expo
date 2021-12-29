@@ -27,46 +27,11 @@ import Modal from '../components/Modal'
 
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
-  const [pokemons, setPokemons] = useState([])
+  const [pokemons, setPokemons] = useState(state.pokemons)
   const [list, setList] = useState([])
   const [searchText, setSearchText] = useState('')
   const [loading, setLoading] = useState(true)
   const [visible, setVisible] = useState(false)
-
-  // pega todos pokemons.
-  async function getAllpokemons(qtd = 1) {
-    //pega lista de pokemons
-    const pokemons = await fetch(
-      `https://pokeapi.co/api/v2/pokemon?limit=${qtd}`
-    )
-      .then((res) => res.json())
-      .then((res) =>
-        res.results.map((poke) =>
-          fetch(poke.url)
-            .then((r) => r.json())
-            .then((pokemon) => {
-              setPokemons((old) => [
-                ...old,
-                {
-                  id: pokemon.id,
-                  name: pokemon.name,
-                  height: pokemon.height,
-                  weight: pokemon.weight,
-                  hab01: pokemon.abilities[0]?.ability.name,
-                  hab02: pokemon.abilities[1]?.ability.name,
-                  image:
-                    pokemon.sprites.other['official-artwork'].front_default,
-                  type01: pokemon.types[0].type.name,
-                  type02: pokemon.types[1]?.type.name,
-                  stats: pokemon.stats,
-                  moves: pokemon.moves,
-                },
-              ])
-              setList(pokemons)
-            })
-        )
-      )
-  }
 
   const pokemonDetails = async (pokemon) => {
     dispatch({
@@ -156,14 +121,10 @@ export default ({ navigation }) => {
   )
 
   useEffect(() => {
-    getAllpokemons(5)
-  }, [])
-
-  useEffect(() => {
     if (searchText === '') {
+      console.log('rodou aqui?')
       setList(pokemons)
     } else {
-      console.log('bateu aqui')
       setList(
         pokemons.filter((item) => {
           if (item.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
