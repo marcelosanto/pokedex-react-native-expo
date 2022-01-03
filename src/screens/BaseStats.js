@@ -41,7 +41,7 @@ export default () => {
       </View>
       <View style={{ width: 180 }}>
         <Progress
-          step={item.base_stat / 11}
+          step={item.base_stat / 20}
           steps={10}
           height={8}
           color={bgColor(index)}

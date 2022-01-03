@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
-import { Text, SafeAreaView } from 'react-native'
+import { SafeAreaView } from 'react-native'
 
 import LottieView from 'lottie-react-native'
 
 import { UserContext } from '../context/UserContext'
-import Api from '../../Api'
+import Api from '../utils/Api'
 
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)

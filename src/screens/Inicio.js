@@ -15,18 +15,13 @@ import {
   VirtualizedList,
 } from 'react-native'
 import { CommonActions } from '@react-navigation/native'
-import BigList from 'react-native-big-list'
-
-import * as Animatable from 'react-native-animatable'
-
-import { Animations } from '../constants/Animations'
-import { colorOfSpecies } from '../utils/utils'
 
 import { UserContext } from '../context/UserContext'
 import PokemonCardList from '../components/PokemonCardList'
 import Header from '../components/Header'
 import SearchInput from '../components/SearchInput'
 import Modal from '../components/Modal'
+import Api from '../utils/Api'
 
 export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
@@ -46,58 +41,20 @@ export default ({ navigation }) => {
       },
     })
 
-    const pokemonEvo = await fetch(
-      `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`
-    )
-      .then((res) => res.json())
-      .then((r) => fetch(r.evolution_chain.url))
-      .then((r) => r.json())
-      .then((r) =>
+    const pokemonDetails = await Api.getPokemonDetails(pokemon.id)
+
+    setTimeout(() => {
+      if (pokemonDetails.length > 0) {
         dispatch({
-          type: 'setPokemonEvolucao',
+          type: 'setPokemonDetails',
           payload: {
-            pokemonEvolucao: [
-              {
-                name: r.chain.species.name,
-                level: 0,
-                id: r.chain.species.url.substr(-5).replace(/[^0-9]/g, ''),
-              },
-              {
-                name: r.chain.evolves_to[0].species.name,
-                level: r.chain.evolves_to[0].evolution_details[0].min_level,
-                id: r.chain.evolves_to[0].species.url
-                  .substr(-5)
-                  .replace(/[^0-9]/g, ''),
-              },
-              {
-                name: r.chain.evolves_to[0].evolves_to[0]?.species.name,
-                level:
-                  r.chain.evolves_to[0].evolves_to[0]?.evolution_details[0]
-                    .min_level,
-                id: r.chain.evolves_to[0].evolves_to[0]?.species.url
-                  .substr(-5)
-                  .replace(/[^0-9]/g, ''),
-              },
-            ],
+            pokemonDetails: pokemonDetails,
           },
         })
-      )
 
-    const req = await fetch(
-      `https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`
-    )
-    let json = await req.json()
-
-    if (json) {
-      dispatch({
-        type: 'setEggroups',
-        payload: {
-          eggroups: json,
-        },
-      })
-
-      navigation.dispatch(CommonActions.navigate('TabNavigator'))
-    }
+        navigation.dispatch(CommonActions.navigate('TabNavigator'))
+      }
+    }, 100)
   }
 
   const handlePokemonInfo = (pokemon) => {
