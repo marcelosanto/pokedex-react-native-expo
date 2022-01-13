@@ -1,26 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text } from 'react-native'
 import Progress from '../components/Progress'
 
 import { UserContext } from '../context/UserContext'
+import { randomColor } from '../utils/utils'
 
 export default () => {
-  const { state } = React.useContext(UserContext)
+  const { state } = useContext(UserContext)
 
-  const color = [
-    '#637aff',
-    '#60c5a8',
-    '#ff5454',
-    '#039a83',
-    '#dcb834',
-    '#8f06e4',
-    'skyblue',
-    '#ff4c98',
-  ]
-
-  const bgColor = (i) => color[i % color.length]
-
-  return state.pokemon.stats.map((item, index) => (
+  return state.pokemonDetails[0].stats.map((item, index) => (
     <View
       key={item.stat.name.toString()}
       style={{
@@ -44,7 +32,7 @@ export default () => {
           step={item.base_stat / 20}
           steps={10}
           height={8}
-          color={bgColor(index)}
+          color={randomColor()}
         />
       </View>
     </View>

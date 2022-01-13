@@ -41,21 +41,18 @@ export default ({ navigation }) => {
       },
     })
 
-    const pokemonDetails = await Api.getPokemonDetails(pokemon.id)
+    const pokemonDetails = await Api.getPokemonInfo(pokemon.id)
 
-    console.log('|------------|')
-    console.log(pokemonDetails.length)
-    console.log(pokemon.id)
-    // if (pokemonDetails.length > 0) {
-    //   dispatch({
-    //     type: 'setPokemonDetails',
-    //     payload: {
-    //       pokemonDetails: pokemonDetails,
-    //     },
-    //   })
+    if (pokemonDetails.length > 0) {
+      dispatch({
+        type: 'setPokemonDetails',
+        payload: {
+          pokemonDetails: pokemonDetails,
+        },
+      })
 
-    //   navigation.dispatch(CommonActions.navigate('TabNavigator'))
-    // }
+      navigation.dispatch(CommonActions.navigate('TabNavigator'))
+    }
   }
 
   const handlePokemonInfo = (pokemon) => {

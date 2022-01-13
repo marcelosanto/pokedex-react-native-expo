@@ -6,7 +6,7 @@ import { UserContext } from '../context/UserContext'
 
 export default () => {
   const { state } = useContext(UserContext)
-  const [pokemonImg, setPokemonImg] = useState(state.pokemonDetails)
+  const [pokemonImg, setPokemonImg] = useState(state.pokemonDetails[0].evolu)
 
   return (
     <View

@@ -15,12 +15,13 @@ const Tab = createMaterialTopTabNavigator()
 
 export default () => {
   const { state } = React.useContext(UserContext)
+  console.log(state.pokemonDetails[0].type01)
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: `${colorOfSpecies(state.pokemon.type01)}88`,
+        backgroundColor: `${colorOfSpecies(state.pokemonDetails[0].type01)}88`,
         paddingTop: StatusBar.currentHeight - 30,
       }}
     >

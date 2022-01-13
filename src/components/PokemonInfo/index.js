@@ -19,9 +19,9 @@ export default () => {
         }}
       >
         <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <Text style={styles.text}>{state.pokemon.name}</Text>
+          <Text style={styles.text}>{state.pokemonDetails[0].name}</Text>
 
-          {state.pokemon.type02 ? (
+          {state.pokemonDetails[0].type02 ? (
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-around' }}
             >
@@ -29,27 +29,33 @@ export default () => {
                 style={[
                   styles.textLabel,
                   {
-                    backgroundColor: colorOfSpecies(state.pokemon.type01),
+                    backgroundColor: colorOfSpecies(
+                      state.pokemonDetails[0].type01
+                    ),
                   },
                 ]}
               >
-                {state.pokemon.type01}
+                {state.pokemonDetails[0].type01}
               </Text>
 
               <Text
                 style={[
                   styles.textLabel,
                   {
-                    backgroundColor: colorOfSpecies(state.pokemon.type02),
+                    backgroundColor: colorOfSpecies(
+                      state.pokemonDetails[0].type02
+                    ),
                   },
                 ]}
               >
-                {state.pokemon.type02}
+                {state.pokemonDetails[0].type02}
               </Text>
             </View>
           ) : (
             <View style={{ width: '100%' }}>
-              <Text style={styles.textLabel}>{state.pokemon.type01}</Text>
+              <Text style={styles.textLabel}>
+                {state.pokemonDetails[0].type01}
+              </Text>
             </View>
           )}
         </View>

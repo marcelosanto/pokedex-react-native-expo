@@ -26,8 +26,7 @@ export default () => {
         <View style={styles.containerDetails}>
           <PokemonAboutInfo
             title='Species'
-            //state.eggroups?.genera[7]?.genus
-            textInfo={'error Bug'}
+            textInfo={state.pokemonDetails[0].eggs[0].specie}
           />
         </View>
 
@@ -37,9 +36,9 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {state.pokemon.height > 1
-                ? state.pokemon.height / 10 + ' m'
-                : state.pokemon.height + ' cm'}
+              {state.pokemonDetails[0].height > 1
+                ? state.pokemonDetails[0].height / 10 + ' m'
+                : state.pokemonDetails[0].height + ' cm'}
             </Text>
           </View>
         </View>
@@ -49,7 +48,7 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {state.pokemon.weight / 10 + ' Kg'}
+              {state.pokemonDetails[0].weight / 10 + ' Kg'}
             </Text>
           </View>
         </View>
@@ -59,7 +58,7 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {`${state.pokemon.hab01}, ${state.pokemon.hab02}
+              {`${state.pokemonDetails[0].hab01}, ${state.pokemonDetails[0].hab02}
                  `}
             </Text>
           </View>
@@ -89,7 +88,7 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {state.pokemonDetails[0].eggs[0][0]?.name || 'null'}
+              {state.pokemonDetails[0].eggs[0].eggGroup[0]?.name || 'null'}
             </Text>
           </View>
         </View>
@@ -99,7 +98,7 @@ export default () => {
           </View>
           <View style={{ width: 150 }}>
             <Text style={styles.textInfo}>
-              {state.pokemonDetails[0].eggs[0][1]?.name || 'null'}
+              {state.pokemonDetails[0].eggs[0]?.eggGroup[1]?.name || 'null'}
             </Text>
           </View>
         </View>

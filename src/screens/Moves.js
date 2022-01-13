@@ -18,7 +18,7 @@ export default () => {
           marginTop: 40,
         }}
       >
-        {state.pokemon.moves.map((item, index) => (
+        {state.pokemonDetails[0].moves.map((item, index) => (
           <Text
             key={index}
             style={{
