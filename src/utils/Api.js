@@ -1,42 +1,25 @@
 const BASE_URL = 'https://pokeapi.co/api/v2/pokemon'
 
-const obj = []
-const PokeDetails = []
-
 export default {
-  getPokemonById: async (id) => {
-    const req = await fetch(`${BASE_URL}/${id}`)
-    let json = await req.json()
-    return json
-  },
   getAllPokemon: async () => {
-    await fetch(`${BASE_URL}?limit=151`)
-      .then((res) => res.json())
-      .then((res) =>
-        res.results.map((poke) => {
-          fetch(poke.url)
-            .then((r) => r.json())
-            .then((pokemon) => {
-              obj.push({
-                id: pokemon.id,
-                name: pokemon.name,
-                height: pokemon.height,
-                weight: pokemon.weight,
-                hab01: pokemon.abilities[0]?.ability.name,
-                hab02: pokemon.abilities[1]?.ability.name,
-                image: pokemon.sprites.other['official-artwork'].front_default,
-                type01: pokemon.types[0].type.name,
-                type02: pokemon.types[1]?.type.name,
-                stats: pokemon.stats,
-                moves: pokemon.moves,
-              })
-            })
-        })
-      )
+    const obj = []
+    //pega lista de pokemons
+    const pokemons = await fetch(`${BASE_URL}?limit=151`)
+    const res = await pokemons.json()
+    res.results.map((poke) =>
+      obj.push({
+        name: poke.name,
+        id: poke.url.substr(-5).replace(/[^0-9]/g, ''),
+        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${poke.url
+          .substr(-5)
+          .replace(/[^0-9]/g, '')}.png`,
+      })
+    )
     return obj
   },
   getPokemonDetails: async (id) => {
     const eggs = []
+    const pokeDetails = []
 
     await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
       .then((res) => res.json())
@@ -45,7 +28,7 @@ export default {
         fetch(r.evolution_chain.url)
           .then((r) => r.json())
           .then((r) =>
-            PokeDetails.push(
+            pokeDetails.push(
               {
                 name: r.chain.species.name,
                 level: 0,
@@ -73,6 +56,6 @@ export default {
       })
       .catch((err) => console.log('erro: ' + err))
 
-    return PokeDetails
+    return pokeDetails
   },
 }

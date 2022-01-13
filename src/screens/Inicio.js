@@ -43,18 +43,19 @@ export default ({ navigation }) => {
 
     const pokemonDetails = await Api.getPokemonDetails(pokemon.id)
 
-    setTimeout(() => {
-      if (pokemonDetails.length > 0) {
-        dispatch({
-          type: 'setPokemonDetails',
-          payload: {
-            pokemonDetails: pokemonDetails,
-          },
-        })
+    console.log('|------------|')
+    console.log(pokemonDetails.length)
+    console.log(pokemon.id)
+    // if (pokemonDetails.length > 0) {
+    //   dispatch({
+    //     type: 'setPokemonDetails',
+    //     payload: {
+    //       pokemonDetails: pokemonDetails,
+    //     },
+    //   })
 
-        navigation.dispatch(CommonActions.navigate('TabNavigator'))
-      }
-    }, 100)
+    //   navigation.dispatch(CommonActions.navigate('TabNavigator'))
+    // }
   }
 
   const handlePokemonInfo = (pokemon) => {
@@ -63,7 +64,11 @@ export default ({ navigation }) => {
 
   const renderItem = ({ item, index }) => (
     <View style={styles.listItem}>
-      <PokemonCardList onPress={() => handlePokemonInfo(item)} item={item} />
+      <PokemonCardList
+        onPress={() => handlePokemonInfo(item)}
+        item={item}
+        index={index}
+      />
     </View>
   )
 

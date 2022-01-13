@@ -10,9 +10,9 @@ export default ({ navigation }) => {
   const { state, dispatch } = useContext(UserContext)
 
   const getPokemons = async () => {
-    let pokemons = await Api.getAllPokemon()
+    const pokemons = await Api.getAllPokemon()
 
-    setTimeout(() => {
+    if (pokemons.length > 150) {
       dispatch({
         type: 'setPokemons',
         payload: {
@@ -24,9 +24,8 @@ export default ({ navigation }) => {
         index: 1,
         routes: [{ name: 'Inicio' }],
       })
-    }, 2000)
+    }
   }
-
   useEffect(() => {
     getPokemons()
   }, [])
