@@ -61,11 +61,7 @@ export default ({ navigation }) => {
 
   const renderItem = ({ item, index }) => (
     <View style={styles.listItem}>
-      <PokemonCardList
-        onPress={() => handlePokemonInfo(item)}
-        item={item}
-        index={index}
-      />
+      <PokemonCardList onPress={() => handlePokemonInfo(item)} item={item} />
     </View>
   )
 
